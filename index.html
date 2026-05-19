@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Schocken</title>
+<style>
+:root {
+  --green: #1a3a1a;
+  --felt: #2d5a27;
+  --gold: #d4a820;
+  --gold2: #f0c83a;
+  --cream: #f5e6c8;
+  --dark: #0d1a0d;
+  --red: #c0392b;
+  --btn-h: 56px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--dark);
+  color: var(--cream);
+  min-height: 100vh;
+  max-width: 500px;
+  margin: 0 auto;
+  user-select: none;
+}
+.screen { display: none; flex-direction: column; min-height: 100vh; padding: 18px; gap: 14px; }
+.screen.active { display: flex; }
+
+h1 { font-size: 2.6em; color: var(--gold); text-align: center; letter-spacing: 6px;
+     text-shadow: 0 0 40px rgba(212,168,32,0.7); font-variant: small-caps; }
+h2 { font-size: 1.5em; color: var(--gold); text-align: center; }
+h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+
+.btn {
+  height: var(--btn-h); border-radius: 14px; border: none;
+  font-size: 1.05em; font-weight: 700; cursor: pointer; width: 100%;
+  transition: transform 0.08s, opacity 0.1s, box-shadow 0.1s;
+  letter-spacing: 0.5px;
+}
+.btn:active { transform: scale(0.96); }
+.btn:disabled { opacity: 0.35; cursor: default; pointer-events: none; }
+.btn-primary { background: linear-gradient(135deg, var(--gold) 0%, #b8900c 100%); color: #1a0e00; box-shadow: 0 4px 15px rgba(212,168,32,0.3); }
+.btn-secondary { background: #243a24; color: var(--cream); border: 1px solid #3a6a3a; }
+.btn-danger { background: linear-gradient(135deg, #e74c3c, #922b21); color: #fff; }
+.btn-ghost { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+.btn-sm { height: 44px; font-size: 0.95em; border-radius: 10px; }
+
+.input {
+  height: 52px; border-radius: 10px; border: 2px solid #2a4a2a;
+  background: #182818; color: var(--cream); font-size: 1em;
+  padding: 0 16px; width: 100%; outline: none;
+}
+.input:focus { border-color: var(--gold); }
+
+.card {
+  background: #182818; border-radius: 16px; padding: 16px;
+  border: 1px solid #2a4a2a;
+}
+
+/* ── MENU ── */
+#menu { padding-top: 36px; }
+.subtitle { text-align: center; color: #666; font-size: 0.9em; }
+.player-entry { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.player-entry .input { flex: 1; }
+.del-btn { width: 44px; height: 44px; border-radius: 10px; border: none; background: #3a2020; color: #e74c3c; font-size: 1.2em; cursor: pointer; flex-shrink: 0; }
+
+/* ── HANDOFF ── */
+#handoff { justify-content: center; align-items: center; gap: 30px; }
+.handoff-icon { font-size: 5em; text-align: center; }
+.handoff-name { font-size: 2.2em; color: var(--gold); text-align: center; font-weight: bold; }
+.handoff-sub { text-align: center; color: #888; }
+
+/* ── GAME ── */
+.top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+.phase-badge {
+  padding: 5px 14px; border-radius: 20px; font-size: 0.8em; font-weight: 600;
+  background: #1a3a1a; color: var(--gold); border: 1px solid #3a6a3a;
+}
+.pool-info { font-size: 0.85em; color: #888; }
+.pool-bar { height: 4px; background: #2a3a2a; border-radius: 2px; margin-top: 3px; }
+.pool-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.5s; }
+
+.player-header { display: flex; justify-content: space-between; align-items: center; }
+.p-name { font-size: 1.5em; font-weight: bold; color: var(--gold); }
+.p-rolls { font-size: 0.9em; color: #888; }
+
+/* ── CUP ── */
+.cup-wrap { display: flex; justify-content: center; padding: 10px 0 0; }
+.cup {
+  width: 90px; height: 105px; cursor: pointer; position: relative;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+}
+.cup-body {
+  width: 100%; height: 88%;
+  background: linear-gradient(160deg, #a0600a 0%, #7a4208 20%, #3a1c04 55%, #7a4208 80%, #a0600a 100%);
+  border-radius: 6px 6px 18px 18px; position: relative; overflow: hidden;
+  box-shadow: inset -10px 0 24px rgba(0,0,0,0.5), inset 8px 0 18px rgba(255,180,60,0.12);
+}
+.cup-body::before {
+  content: ''; position: absolute; top: 12px; left: 14px;
+  width: 14px; height: 55%;
+  background: linear-gradient(180deg, rgba(255,200,80,0.28) 0%, transparent 100%);
+  border-radius: 7px;
+}
+.cup-rim {
+  position: absolute; bottom: 12%; left: -9px; right: -9px; height: 14px;
+  background: linear-gradient(180deg, #b56a10 0%, #7a4208 100%);
+  border-radius: 4px; box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+}
+.cup-base {
+  width: 75%; height: 12%; margin: 0 auto;
+  background: linear-gradient(180deg, #7a4208 0%, #3a1c04 100%);
+  border-radius: 0 0 8px 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.cup-closed-label {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 1.6em; pointer-events: none;
+}
+
+/* ── DICE ── */
+.dice-row { display: flex; justify-content: center; gap: 14px; padding: 10px 0; flex-wrap: wrap; }
+.dice-scene { width: 72px; height: 72px; cursor: pointer; }
+.die2 {
+  width: 72px; height: 72px; border-radius: 13px;
+  background: linear-gradient(145deg, #ffffff 0%, #eee9de 100%);
+  border: 2px solid #c8bfa8;
+  box-shadow: 4px 4px 12px rgba(0,0,0,0.45), inset 0 1px 1px rgba(255,255,255,0.85);
+  display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr;
+  padding: 9px; position: relative;
+}
+.die2.kept {
+  border-color: var(--gold);
+  background: linear-gradient(145deg, #fffde8 0%, #f5e090 100%);
+  box-shadow: 0 0 16px rgba(212,168,32,0.8), 4px 4px 12px rgba(0,0,0,0.35);
+}
+.die2.rolling {
+  animation: roll2d 0.52s ease-out;
+  pointer-events: none;
+}
+@keyframes roll2d {
+  0%   { transform: scale(1)    rotate(0deg);   filter: blur(0px); }
+  25%  { transform: scale(0.55) rotate(130deg); filter: blur(3px); }
+  55%  { transform: scale(0.55) rotate(260deg); filter: blur(3px); }
+  100% { transform: scale(1)    rotate(360deg); filter: blur(0px); }
+}
+.pc { display: flex; align-items: center; justify-content: center; }
+.pp { width: 12px; height: 12px; border-radius: 50%; background: #1a1a1a;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.45); }
+.dice-hint { text-align: center; font-size: 0.8em; color: #666; margin-top: -6px; }
+
+/* small dice for reveal */
+.small-die { width: 48px; height: 48px; }
+.die2-sm { width: 48px; height: 48px; border-radius: 9px; padding: 6px;
+           box-shadow: 3px 3px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8); }
+.die2-sm .pp { width: 8px; height: 8px; }
+
+/* tiny dice for scoreboard */
+.tiny-die { width: 28px; height: 28px; }
+.die2-xs { width: 28px; height: 28px; border-radius: 6px; padding: 4px;
+           box-shadow: 2px 2px 5px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7); }
+.die2-xs .pp { width: 5px; height: 5px; }
+
+/* ── KEPT DICE ROW ── */
+.kept-row {
+  display: flex; align-items: center; gap: 10px; justify-content: center;
+  flex-wrap: wrap; margin-top: 6px;
+}
+.kept-label { font-size: 0.75em; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── SCOREBOARD EXTRAS ── */
+.score-row { flex-wrap: wrap; gap: 6px; }
+.sr-left { display: flex; flex-direction: column; gap: 4px; }
+.sr-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.sb-dice { display: flex; gap: 6px; flex-wrap: wrap; }
+.tf-badge {
+  font-size: 0.75em; font-weight: 700; color: #e74c3c;
+  background: #2a1010; border: 1px solid #5a2020;
+  padding: 1px 7px; border-radius: 10px;
+}
+
+/* ── ACTIONS ── */
+.action-row { display: flex; gap: 10px; }
+.action-row .btn { flex: 1; }
+.convert-area .btn { font-size: 0.9em; height: 46px; }
+
+/* ── SCOREBOARD ── */
+.score-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 12px; border-radius: 10px; background: #1a2a1a; margin-bottom: 6px;
+}
+.score-row.active { background: #253a25; border: 1px solid #4a8a4a; }
+.score-row.done { opacity: 0.65; }
+.score-row .sname { font-weight: 600; }
+.score-row .schips { color: var(--gold); font-size: 0.85em; }
+.score-row .sresult { font-size: 0.8em; color: #888; }
+.score-row .sdone { font-size: 0.8em; color: #5a8a5a; }
+
+/* ── REVEAL ── */
+.rev-item {
+  padding: 14px; border-radius: 14px; background: #182818;
+  border: 1px solid #2a4a2a; margin-bottom: 10px;
+}
+.rev-item.loser { border-color: var(--red); background: #220d0d; }
+.rev-item.winner{ border-color: var(--gold); background: #1a2010; }
+.rev-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.rev-name { font-weight: bold; font-size: 1.05em; }
+.rev-score { font-size: 0.85em; padding: 3px 10px; border-radius: 10px; background: #2a3a2a; }
+.rev-dice { display: flex; gap: 10px; justify-content: center; }
+
+/* ── PHASE END / GAME OVER ── */
+#phaseEnd, #gameOver { justify-content: center; align-items: center; gap: 22px; }
+.big-emoji { font-size: 5em; text-align: center; }
+.phase-result { text-align: center; }
+.standings-list { width: 100%; }
+.standing-row { display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 16px; border-radius: 10px; background: #182818; margin-bottom: 8px; }
+.standing-row.loser { border: 1px solid var(--red); }
+
+/* ── TF OVERLAY ── */
+.tf-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 600;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 18px; padding: 30px; animation: fadeIn 0.2s ease;
+}
+.tf-emoji { font-size: 4.5em; }
+.tf-title { font-size: 1.7em; font-weight: bold; text-align: center; }
+.tf-title.red  { color: #e74c3c; }
+.tf-title.gold { color: var(--gold); }
+.tf-sub  { text-align: center; color: #aaa; font-size: 0.9em; line-height: 1.5; }
+.tf-counter { color: var(--gold); font-size: 0.85em; padding: 4px 14px; border-radius: 14px; background: #2a1a00; border: 1px solid #5a3a00; }
+.tf-btn {
+  height: 54px; border-radius: 14px; border: none; font-size: 1.1em; font-weight: 700;
+  cursor: pointer; width: 100%; max-width: 300px; margin-top: 6px;
+}
+
+/* ── TOAST ── */
+#toast {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-10px);
+  background: rgba(10,20,10,0.95); color: var(--cream);
+  padding: 10px 22px; border-radius: 22px; border: 1px solid var(--gold);
+  font-size: 0.9em; z-index: 999; pointer-events: none;
+  opacity: 0; transition: opacity 0.25s, transform 0.25s; white-space: nowrap;
+}
+#toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── UTILS ── */
+.fade-in { animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+.spacer { flex: 1; }
+.text-center { text-align: center; }
+.mt8 { margin-top: 8px; }
+.row { display: flex; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- ════════════════════ MENU ════════════════════ -->
+<div class="screen active" id="menu">
+  <h1>SCHOCKEN</h1>
+  <p class="subtitle">Spielernamen eingeben · Reihenfolge = Spielreihenfolge</p>
+  <div class="card">
+    <div id="playerList"></div>
+    <button class="btn btn-ghost btn-sm mt8" onclick="addField()">+ Spieler hinzufügen</button>
+  </div>
+  <button class="btn btn-primary" id="startBtn" onclick="startGame()" disabled>Spiel starten</button>
+  <div class="card" style="font-size:0.78em;color:#555;line-height:1.7">
+    <strong style="color:#777">Regeln kurz:</strong> 3 Würfel · bis 3 Würfe · Erster Spieler bestimmt Max.
+    Straße &amp; Pasch nur aus einem einzigen Wurf. 2×6 → 2×1 (optional, wenn noch Wurf übrig).
+    Schock = zwei Einsen + dritter Würfel (Chips = Augenzahl). Schock-Out = sofortiger Halbzeit-Verlust.
+    2 Halbzeiten (13 Chips) + Finale.
+  </div>
+</div>
+
+<!-- ════════════════════ HANDOFF ════════════════════ -->
+<div class="screen" id="handoff">
+  <div class="spacer"></div>
+  <div class="handoff-icon">🎲</div>
+  <div class="handoff-name" id="handoffName"></div>
+  <div class="handoff-sub" id="handoffSub">ist dran!</div>
+  <button class="btn btn-primary" onclick="liftCup()" id="handoffBtn" style="margin-top:10px">
+    Becher heben
+  </button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ GAME ════════════════════ -->
+<div class="screen" id="game">
+  <div class="top-bar">
+    <span class="phase-badge" id="phaseBadge">Halbzeit 1</span>
+    <div>
+      <div class="pool-info">Pool: <span id="poolCount">13</span> Chips</div>
+      <div class="pool-bar"><div class="pool-fill" id="poolFill" style="width:100%"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="player-header">
+      <span class="p-name" id="pName">–</span>
+    </div>
+  </div>
+
+  <div id="diceArea" class="fade-in"></div>
+  <div class="dice-hint" id="diceHint" style="display:none">Tippe auf Würfel zum Festhalten (gold)</div>
+
+  <div class="convert-area" id="convertArea" style="display:none">
+    <button class="btn btn-secondary" onclick="convertSixes()">
+      ✨ Zwei Sechsen → Zwei Einsen (optional)
+    </button>
+  </div>
+
+  <div class="action-row" id="actionRow">
+    <button class="btn btn-primary" id="rollBtn" onclick="doRoll()">Würfeln</button>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:10px">Spielstand</h3>
+    <div id="scoreboard"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ REVEAL ════════════════════ -->
+<div class="screen" id="reveal">
+  <h2>Aufdecken</h2>
+  <p class="text-center" id="revealSub" style="color:#888;font-size:0.9em;margin-top:-6px"></p>
+  <div id="revealList"></div>
+  <button class="btn btn-primary" id="revealBtn" onclick="afterReveal()">Weiter</button>
+</div>
+
+<!-- ════════════════════ PHASE END ════════════════════ -->
+<div class="screen" id="phaseEnd">
+  <div class="spacer"></div>
+  <div class="big-emoji" id="phaseEmoji">🍺</div>
+  <h2 id="phaseTitle"></h2>
+  <p id="phaseSub" style="text-align:center;color:#888;font-size:0.9em"></p>
+  <div class="standings-list" id="standings"></div>
+  <button class="btn btn-primary" onclick="nextPhase()" style="margin-top:8px" id="phaseBtn">Weiter</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ GAME OVER ════════════════════ -->
+<div class="screen" id="gameOver">
+  <div class="spacer"></div>
+  <div class="big-emoji">🏆</div>
+  <h2 id="goTitle" style="font-size:1.8em"></h2>
+  <p id="goSub" style="text-align:center;color:#888"></p>
+  <div class="standings-list" id="goStandings"></div>
+  <button class="btn btn-primary" onclick="location.reload()" style="margin-top:8px">Neues Spiel</button>
+  <div class="spacer"></div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  PIP LAYOUTS & DIE RENDERING
+// ══════════════════════════════════════════════
+const PIPS = {
+  1:[5], 2:[3,7], 3:[3,5,7], 4:[1,3,7,9], 5:[1,3,5,7,9], 6:[1,3,4,6,7,9]
+};
+
+function dieHTML(idx, val, kept, rolling, small=false) {
+  const pips = PIPS[val] || PIPS[1];
+  let cells = '';
+  for (let i = 1; i <= 9; i++)
+    cells += `<div class="pc">${pips.includes(i) ? '<div class="pp"></div>' : ''}</div>`;
+  const kc = kept ? 'kept' : '';
+  const rc = rolling ? 'rolling' : '';
+  const sz = small ? 'small-die' : 'dice-scene';
+  const oc = small ? '' : `onclick="toggleKeep(${idx})"`;
+  const dc = small ? 'die2 die2-sm' : 'die2';
+  return `<div class="${sz}" ${oc}><div class="${dc} ${kc} ${rc}" id="d${idx}">${cells}</div></div>`;
+}
+
+function dieSmall(val) { return dieHTML(0, val, false, false, true); }
+function dieTiny(val) {
+  const pips = PIPS[val] || PIPS[1];
+  let cells = '';
+  for (let i=1;i<=9;i++) cells += `<div class="pc">${pips.includes(i)?'<div class="pp"></div>':''}</div>`;
+  return `<div class="tiny-die"><div class="die2 die2-xs">${cells}</div></div>`;
+}
+
+// ══════════════════════════════════════════════
+//  SCORING
+// ══════════════════════════════════════════════
+// Returns {type, chips, label}
+// types: 0=high, 1=strasse, 2=pasch, 3=schock, 4=schockout
+function score(dice, allSingle) {
+  const s = [...dice].sort((a,b)=>a-b);
+  if (s[0]===1 && s[1]===1 && s[2]===1)
+    return {type:4, chips:'INSTANT', label:'Schock-Out!!!', val:[1,1,1]};
+  if (s[0]===1 && s[1]===1)
+    return {type:3, chips:s[2], label:`Schock-${s[2]}`, val:s};
+  if (allSingle && s[0]===s[1] && s[1]===s[2])
+    return {type:2, chips:3, label:`Pasch (${s[0]}er)`, val:s};
+  if (allSingle && s[2]-s[1]===1 && s[1]-s[0]===1)
+    return {type:1, chips:2, label:`Straße (${s[0]}-${s[2]})`, val:s};
+  return {type:0, chips:1, label:`${[...dice].sort((a,b)=>b-a).join('-')}`, val:[...dice].sort((a,b)=>b-a)};
+}
+
+// >0 means a better than b
+function cmpScore(a, b) {
+  if (a.type !== b.type) return a.type - b.type;
+  if (a.type===3) return a.chips - b.chips;
+  if (a.type===2) return a.val[0] - b.val[0];
+  if (a.type===1) return a.val[0] - b.val[0]; // higher straight better
+  if (a.type===0) {
+    for (let i=0;i<3;i++) if (a.val[i]!==b.val[i]) return a.val[i]-b.val[i];
+    return 0;
+  }
+  return 0;
+}
+
+// ══════════════════════════════════════════════
+//  GAME STATE
+// ══════════════════════════════════════════════
+let G = null;
+
+function freshG(names) {
+  return {
+    players: names.map(n=>({name:n, chips:0, tf:0})),
+    phase: 'half1',    // half1 | half2 | finale
+    pool: 13,
+    halfLosers: [],    // up to 2 player indices
+    round: null,
+    turn: null,
+  };
+}
+
+// Round: manages multi-player sequence
+function freshRound(order, firstPos=0) {
+  return {
+    order,          // player indices this round
+    pos: firstPos,  // current index into order
+    maxRolls: null, // set after first player done
+    results: new Array(order.length).fill(null),
+  };
+}
+
+// Turn: single player's rolling session
+function freshTurn(isFirst) {
+  return {
+    dice: [1,1,1],
+    kept: [false,false,false],
+    rolls: 0,
+    maxRolls: isFirst ? 3 : (G.round.maxRolls || 3),
+    isFirst,
+    allSingle: true,   // never split dice?
+    canConvert: false,
+    convPositions: [], // indices of the two 6s
+    lastJustRolled: [true,true,true], // which dice were rolled in last throw
+    showingDice: false,  // true = dice visible; false = cup view
+    trappedTF: false,    // after TF-trap: no more "Nochmal würfeln"
+    done: false,
+    rolling: false,
+  };
+}
+
+// ── MENU ──
+let fieldCount = 0;
+function addField(name='') {
+  fieldCount++;
+  const id = 'pf'+fieldCount;
+  const div = document.createElement('div');
+  div.className = 'player-entry fade-in';
+  div.id = id;
+  div.innerHTML = `<input class="input" type="text" placeholder="Name Spieler ${fieldCount}"
+    value="${name}" oninput="chkStart()" />
+    <button class="del-btn" onclick="rmField('${id}')">✕</button>`;
+  document.getElementById('playerList').appendChild(div);
+  chkStart();
+  if (!name) div.querySelector('input').focus();
+}
+function rmField(id) { document.getElementById(id)?.remove(); chkStart(); }
+function chkStart() {
+  const n = [...document.querySelectorAll('#playerList input')].filter(i=>i.value.trim()).length;
+  document.getElementById('startBtn').disabled = n < 2;
+}
+
+// ── START ──
+function startGame() {
+  const names = [...document.querySelectorAll('#playerList input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+  if (names.length<2) return;
+  G = freshG(names);
+  beginRound(G.players.map((_,i)=>i), 0);
+}
+
+function beginRound(order, firstPos) {
+  G.round = freshRound(order, firstPos);
+  beginTurn();
+}
+
+function beginTurn() {
+  const isFirst = G.round.pos === 0; // conceptually; actually check if current is the first who rolled
+  const isActualFirst = G.round.results.every(r=>r===null);
+  G.turn = freshTurn(isActualFirst);
+  showHandoff();
+}
+
+// ── SCREENS ──
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showHandoff() {
+  const pi = G.round.order[G.round.pos];
+  document.getElementById('handoffName').textContent = G.players[pi].name;
+  const isFirst = G.turn.isFirst;
+  document.getElementById('handoffSub').textContent = isFirst
+    ? 'beginnt die Runde – heb den Becher!'
+    : 'du bist dran – heb den Becher!';
+  document.getElementById('handoffBtn').textContent = 'Becher heben';
+  showScreen('handoff');
+}
+
+function liftCup() {
+  renderGame();
+  showScreen('game');
+}
+
+// ── GAME RENDER ──
+function renderGame() {
+  const pi = G.round.order[G.round.pos];
+  const p = G.players[pi];
+  const t = G.turn;
+
+  // phase badge
+  const phaseLabels = {half1:'Halbzeit 1', half2:'Halbzeit 2', finale:'Finale'};
+  document.getElementById('phaseBadge').textContent = phaseLabels[G.phase];
+
+  // pool bar
+  const maxPool = G.phase==='finale' ? 13 : 13;
+  document.getElementById('poolCount').textContent = G.pool;
+  document.getElementById('poolFill').style.width = (G.pool/maxPool*100)+'%';
+
+  // player header
+  document.getElementById('pName').textContent = p.name;
+
+  // dice area
+  renderDiceArea();
+
+  // convert area
+  const ca = document.getElementById('convertArea');
+  ca.style.display = t.canConvert ? '' : 'none';
+
+  // action buttons
+  renderActions();
+
+  // scoreboard
+  renderScoreboard();
+}
+
+function renderDiceArea() {
+  const t = G.turn;
+  const area = document.getElementById('diceArea');
+  if (t.showingDice) {
+    let html = '<div class="dice-row">';
+    for (let i=0;i<3;i++) html += dieHTML(i, t.dice[i], t.kept[i], false);
+    html += '</div>';
+    area.innerHTML = html;
+    document.getElementById('diceHint').style.display = '';
+  } else {
+    // cup view – show cup + rausgelegte Würfel
+    const hasKept = t.kept.some(Boolean);
+    let keptHTML = '';
+    if (hasKept) {
+      keptHTML = '<div class="kept-row"><span class="kept-label">Rausgelegt:</span>';
+      for (let i=0;i<3;i++) if (t.kept[i]) keptHTML += dieHTML(i, t.dice[i], true, false);
+      keptHTML += '</div>';
+    }
+    area.innerHTML = `<div class="cup-wrap">
+      <div class="cup">
+        <div class="cup-body"><div class="cup-rim"></div></div>
+        <div class="cup-base"></div>
+      </div>
+    </div>${keptHTML}`;
+    document.getElementById('diceHint').style.display = 'none';
+  }
+}
+
+function renderActions() {
+  const t = G.turn;
+  const row = document.getElementById('actionRow');
+  const maxR = t.isFirst ? 3 : (G.round.maxRolls || 3);
+  const atMax = t.rolls >= maxR;
+
+  if (t.done) { row.innerHTML = ''; return; }
+
+  if (t.showingDice) {
+    row.innerHTML = `
+      <button class="btn btn-secondary" onclick="closeCup()">Becher zu</button>
+      <button class="btn btn-primary" onclick="lockTurn()">Nächster Spieler →</button>`;
+    return;
+  }
+
+  // Cup view
+  if (t.rolls === 0) {
+    row.innerHTML = `<button class="btn btn-primary" onclick="doRoll()">Würfeln</button>`;
+  } else if (t.trappedTF) {
+    row.innerHTML = `<button class="btn btn-primary" onclick="lockTurn()">Nächster Spieler →</button>`;
+  } else {
+    // "Becher auf" and "Nochmal würfeln" both silently trigger TF if at max – player doesn't know
+    row.innerHTML = `
+      <div class="action-row" style="flex-wrap:wrap;gap:10px;width:100%">
+        <button class="btn btn-secondary" style="flex:1;min-width:120px" onclick="liftCupView()">Becher auf 👀</button>
+        <button class="btn btn-secondary" style="flex:1;min-width:120px" onclick="rollFromCupView()">Nochmal würfeln</button>
+        <button class="btn btn-primary" style="width:100%" onclick="lockTurn()">Nächster Spieler →</button>
+      </div>`;
+  }
+}
+
+function renderScoreboard() {
+  const r = G.round;
+  let html = '';
+  for (let pos=0; pos<r.order.length; pos++) {
+    const pi = r.order[pos];
+    const p = G.players[pi];
+    const isCurrent = pos === r.pos;
+    const res = r.results[pos];
+    const cls = isCurrent ? 'active' : (res ? 'done' : '');
+
+    const tfBadge = p.tf > 0 ? `<span class="tf-badge">⚡${p.tf}</span>` : '';
+
+    let diceRow = '';
+    if (res) {
+      // show only kept dice, OR all if ended with dice open
+      const visible = res.endedOpen
+        ? res.dice
+        : res.dice.filter((_, i) => res.kept[i]);
+      if (visible.length) diceRow = `<div class="sb-dice">${visible.map(v=>dieTiny(v)).join('')}</div>`;
+    } else if (isCurrent && G.turn.rolls > 0) {
+      const keptTiny = G.turn.dice.map((v,i)=>G.turn.kept[i]?dieTiny(v):'').join('');
+      if (keptTiny) diceRow = `<div class="sb-dice">${keptTiny}</div>`;
+    }
+
+    html += `<div class="score-row ${cls}">
+      <div class="sr-left">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="sname">${p.name}</span>${tfBadge}
+        </div>
+        ${diceRow}
+      </div>
+      <div class="sr-right">
+        <span class="schips">${p.chips} 🪙</span>
+      </div>
+    </div>`;
+  }
+  document.getElementById('scoreboard').innerHTML = html;
+}
+
+// ── DICE INTERACTION ──
+function toggleKeep(i) {
+  const t = G.turn;
+  if (t.rolls === 0 || t.rolling || t.done) return;
+  t.kept[i] = !t.kept[i];
+  if (t.showingDice) checkConvert();
+  renderGame();
+}
+
+function doRoll() {
+  const t = G.turn;
+  if (t.rolling || t.done) return;
+  const maxR = t.isFirst ? 3 : (G.round.maxRolls||3);
+  if (t.rolls >= maxR) return;
+
+  const numKept = t.kept.filter(Boolean).length;
+  if (numKept > 0 && numKept < 3) t.allSingle = false;
+
+  t.rolling = true;
+  t.rolls++;
+  t.showingDice = false; // always go to cup view after roll
+
+  const justRolled = t.kept.map(k => !k);
+  const newVals = [...t.dice];
+  for (let i=0;i<3;i++) if (!t.kept[i]) newVals[i] = Math.ceil(Math.random()*6);
+
+  // Show animation directly in the area (bypass renderDiceArea)
+  const area = document.getElementById('diceArea');
+  let html = '<div class="dice-row">';
+  for (let i=0;i<3;i++) html += dieHTML(i, t.dice[i], t.kept[i], !t.kept[i]);
+  html += '</div>';
+  area.innerHTML = html;
+  document.getElementById('diceHint').style.display = 'none';
+
+  setTimeout(()=>{
+    t.dice = newVals;
+    t.rolling = false;
+    t.lastJustRolled = justRolled;
+    // checkConvert is called in liftCupView when player actually opens the cup
+    maybeTF(() => renderGame()); // renders cup view
+  }, 580);
+}
+
+function checkConvert() {
+  const t = G.turn;
+  const maxR = t.isFirst ? 3 : (G.round.maxRolls||3);
+  if ((maxR - t.rolls) <= 0) { t.canConvert = false; t.convPositions = []; return; }
+
+  const sixPos = [];
+  for (let i=0;i<3;i++)
+    if (t.dice[i]===6 && !t.kept[i]) sixPos.push(i);
+  if (sixPos.length >= 2) {
+    t.canConvert = true;
+    t.convPositions = sixPos; // store all sixes
+  } else {
+    t.canConvert = false;
+    t.convPositions = [];
+  }
+}
+
+function convertSixes() {
+  const t = G.turn;
+  if (!t.canConvert) return;
+  // 2 sixes → 1 one, 3 sixes → 2 ones (each extra six beyond the pair adds one 1)
+  const convertCount = t.convPositions.length - 1;
+  t.convPositions.slice(0, convertCount).forEach(i=>{ t.dice[i]=1; t.kept[i]=true; });
+  t.canConvert = false;
+  t.allSingle = false;
+  toast(convertCount === 1 ? 'Zwei Sechsen → Eine Eins ✓' : 'Drei Sechsen → Zwei Einsen ✓');
+  renderGame();
+}
+
+function liftCupView() {
+  const t = G.turn;
+  const maxR = t.isFirst ? 3 : (G.round.maxRolls||3);
+  if (t.rolls >= maxR) {
+    const pi = G.round.order[G.round.pos];
+    G.players[pi].tf++;
+    const bier = G.players[pi].tf >= 3;
+    if (bier) G.players[pi].tf = 0;
+    const ev = { emoji:'👀', title:'Becher nach letztem Wurf geöffnet!', sub:'Nach dem letzten Wurf bleibt der Becher zu – Technischer Fehler.' };
+    showTFOverlay(ev, G.players[pi].name, bier, () => renderGame());
+  } else {
+    t.showingDice = true;
+    checkConvert();
+    renderGame();
+  }
+}
+
+function rollFromCupView() {
+  const t = G.turn;
+  const maxR = t.isFirst ? 3 : (G.round.maxRolls||3);
+  if (t.rolls >= maxR) {
+    cupLiftingTF();
+  } else {
+    doRoll();
+  }
+}
+
+function closeCup() {
+  G.turn.showingDice = false;
+  G.turn.canConvert = false;
+  renderGame();
+}
+
+function cupLiftingTF() {
+  const pi = G.round.order[G.round.pos];
+  G.players[pi].tf++;
+  const bier = G.players[pi].tf >= 3;
+  if (bier) G.players[pi].tf = 0;
+  const ev = { emoji:'👀', title:'Becher aufgehoben!', sub:'Würfel waren bereits gesperrt – Technischer Fehler.' };
+  showTFOverlay(ev, G.players[pi].name, bier, () => {
+    G.turn.trappedTF = true;
+    G.turn.showingDice = false;
+    renderGame();
+  });
+}
+
+function lockTurn() {
+  const t = G.turn;
+  if (t.rolls === 0 || t.done || t.rolling) return;
+  t.done = true;
+  t.canConvert = false;
+
+  // Record result
+  const pi = G.round.order[G.round.pos];
+  const sc = score(t.dice, t.allSingle);
+  G.round.results[G.round.pos] = { pi, dice: [...t.dice], kept: [...t.kept], endedOpen: t.showingDice, sc };
+
+  // If this was the first player, set maxRolls
+  if (t.isFirst) G.round.maxRolls = t.rolls;
+
+  // Next player or reveal
+  G.round.pos++;
+  if (G.round.pos >= G.round.order.length) {
+    // All done – reveal
+    showReveal();
+  } else {
+    beginTurn();
+  }
+}
+
+// ── REVEAL ──
+function showReveal() {
+  const r = G.round;
+  const results = r.results.map(res=>({...res, sc: res.sc}));
+
+  // Sort by score for display (best first)
+  const sorted = [...results].sort((a,b)=>cmpScore(b.sc,a.sc));
+
+  // Best and worst
+  const best = sorted[0];
+  const worst = sorted[sorted.length-1];
+  const hasSchockOut = best.sc.type===4;
+
+  document.getElementById('revealSub').textContent = hasSchockOut
+    ? '⚡ SCHOCK-OUT – Sofortiger Halbzeitverlust!'
+    : `Bester Wurf: ${best.sc.label} · ${best.sc.chips} Chip(s)`;
+
+  let html = '';
+  for (const res of sorted) {
+    const isWinner = res.pi===best.pi;
+    const isLoser  = res.pi===worst.pi && res.pi!==best.pi;
+    const cls = isWinner?'winner':(isLoser?'loser':'');
+    const diceSVG = `<div class="rev-dice">${res.dice.map(v=>dieSmall(v)).join('')}</div>`;
+    html += `<div class="rev-item ${cls}">
+      <div class="rev-header">
+        <span class="rev-name">${G.players[res.pi].name}</span>
+        <span class="rev-score">${res.sc.label}</span>
+      </div>
+      ${diceSVG}
+    </div>`;
+  }
+  document.getElementById('revealList').innerHTML = html;
+  showScreen('reveal');
+}
+
+
+function afterReveal() {
+  processRound();
+}
+
+// ── ROUND RESULT ──
+function processRound() {
+  const r = G.round;
+  const results = r.results;
+
+  // Find best and worst scores
+  let best = results[0], worst = results[0];
+  for (const res of results) {
+    if (cmpScore(res.sc, best.sc) > 0) best = res;
+    if (cmpScore(res.sc, worst.sc) < 0) worst = res;
+  }
+
+  const loser = worst;
+  const hasSchockOut = best.sc.type === 4;
+
+  if (hasSchockOut) {
+    // Instant phase loss
+    endPhase(loser.pi, true);
+    return;
+  }
+
+  // Chip value = best hand's chips
+  const chipVal = best.sc.chips;
+
+  if (G.phase === 'half1' || G.phase === 'half2') {
+    if (G.pool > 0) {
+      // Phase 1: chips from pool
+      const given = Math.min(chipVal, G.pool);
+      G.players[loser.pi].chips += given;
+      G.pool -= given;
+      toast(`${G.players[loser.pi].name} bekommt ${given} Chip(s)`);
+    } else {
+      // Phase 2: chips from winner (best hand player)
+      const winner = best.pi !== loser.pi ? best.pi : results.find(r=>r.pi!==loser.pi)?.pi;
+      if (winner !== undefined) {
+        const given = Math.min(chipVal, G.players[winner].chips);
+        G.players[winner].chips -= given;
+        G.players[loser.pi].chips += given;
+        toast(`${G.players[loser.pi].name} bekommt ${given} von ${G.players[winner].chips+given>0?G.players[winner].name:'?'}`);
+      }
+    }
+  } else {
+    // Finale: same pool logic then player-to-player
+    if (G.pool > 0) {
+      const given = Math.min(chipVal, G.pool);
+      G.players[loser.pi].chips += given;
+      G.pool -= given;
+    } else {
+      const winner = best.pi;
+      if (winner !== loser.pi) {
+        const given = Math.min(chipVal, G.players[winner].chips);
+        G.players[winner].chips -= given;
+        G.players[loser.pi].chips += given;
+      }
+    }
+  }
+
+  // Check if someone has ALL chips
+  const total = G.players.reduce((s,p)=>s+p.chips, 0);
+  // For pool phases, total chips in play = 13 - pool
+  const inPlay = 13 - G.pool;
+  const hasAll = G.players.findIndex(p=>p.chips>=inPlay && inPlay>0 && G.pool===0);
+
+  if (hasAll >= 0 && G.pool === 0) {
+    endPhase(hasAll, false);
+    return;
+  }
+
+  // Next round
+  const activeOrder = getActiveOrder(loser.pi);
+  beginRound(activeOrder, 0);
+}
+
+function getActiveOrder(loserPI) {
+  // Loser starts next round
+  // In pool-exhausted phase, only players with chips play
+  const allIdx = G.players.map((_,i)=>i).filter(i=>{
+    if (G.phase==='finale') return G.round.order.includes(i);
+    // In half phases after pool: only players with chips
+    if (G.pool===0) return G.players[i].chips>0;
+    return true;
+  });
+  // Rotate so loser is first
+  const loserPos = allIdx.indexOf(loserPI);
+  if (loserPos < 0) return allIdx; // loser got 0 chips somehow
+  return [...allIdx.slice(loserPos), ...allIdx.slice(0,loserPos)];
+}
+
+function endPhase(loserPI, instant) {
+  if (G.phase==='half1') {
+    G.halfLosers[0] = loserPI;
+    // Show phase end screen
+    showPhaseEnd('half1', loserPI, instant);
+  } else if (G.phase==='half2') {
+    G.halfLosers[1] = loserPI;
+    // Check if same person lost both halves
+    if (G.halfLosers[0]===G.halfLosers[1]) {
+      showGameOver(loserPI);
+    } else {
+      showPhaseEnd('half2', loserPI, instant);
+    }
+  } else if (G.phase==='finale') {
+    showGameOver(loserPI);
+  }
+}
+
+// ── PHASE END ──
+function showPhaseEnd(phase, loserPI, instant) {
+  const phaseLabel = phase==='half1'?'Halbzeit 1':'Halbzeit 2';
+  document.getElementById('phaseEmoji').textContent = '🍺';
+  document.getElementById('phaseTitle').textContent = `${phaseLabel} beendet!`;
+  document.getElementById('phaseSub').textContent = instant
+    ? `SCHOCK-OUT! ${G.players[loserPI].name} verliert die ${phaseLabel} sofort!`
+    : `${G.players[loserPI].name} hat alle Chips gesammelt und die ${phaseLabel} verloren!`;
+
+  let html = '';
+  const sorted = [...G.players.entries()].sort((a,b)=>b[1].chips-a[1].chips);
+  for (const [i,p] of sorted) {
+    const isLoser = i===loserPI;
+    html += `<div class="standing-row ${isLoser?'loser':''}">
+      <span>${isLoser?'💀 ':''}<strong>${p.name}</strong></span>
+      <span>${p.chips} 🪙</span>
+    </div>`;
+  }
+  document.getElementById('standings').innerHTML = html;
+  document.getElementById('phaseBtn').textContent =
+    phase==='half1' ? 'Halbzeit 2 starten' : 'Finale starten';
+  showScreen('phaseEnd');
+}
+
+function nextPhase() {
+  if (G.phase==='half1') {
+    G.phase='half2';
+    G.pool=13;
+    G.players.forEach(p=>p.chips=0);
+    const order = G.players.map((_,i)=>i);
+    beginRound(order, 0);
+  } else if (G.phase==='half2') {
+    startFinale();
+  }
+}
+
+function startFinale() {
+  G.phase='finale';
+  G.pool=13;
+  G.players.forEach(p=>p.chips=0);
+  // Only the two half-losers play
+  const finalists = G.halfLosers.slice(0,2);
+  beginRound(finalists, 0);
+  document.getElementById('phaseBadge').textContent = 'Finale';
+}
+
+// ── GAME OVER ──
+function showGameOver(loserPI) {
+  const loser = G.players[loserPI];
+  const others = G.players.map((p,i)=>({...p,i})).filter(p=>p.i!==loserPI);
+  const winnerName = others.length===1 ? others[0].name : 'Die anderen';
+
+  document.getElementById('goTitle').textContent = `${loser.name} hat verloren!`;
+  document.getElementById('goSub').textContent = `Das Spiel ist vorbei. ${loser.name} muss zahlen! 🍺`;
+
+  let html = '';
+  const all = [...G.players.entries()].sort((a,b)=>b[1].chips-a[1].chips);
+  for (const [i,p] of all) {
+    const isLoser = i===loserPI;
+    html += `<div class="standing-row ${isLoser?'loser':''}">
+      <span>${isLoser?'💀 ':'🏆 '}<strong>${p.name}</strong></span>
+      <span>${p.chips} 🪙</span>
+    </div>`;
+  }
+  document.getElementById('goStandings').innerHTML = html;
+  showScreen('gameOver');
+}
+
+// ── TF SYSTEM ──
+const TF_EVENTS = [
+  { emoji:'🎲', title:'Würfel fällt vom Tisch!',       sub:'Der Wurf zählt leider nicht – Technischer Fehler.' },
+  { emoji:'🎲', title:'Würfel rollt hinter den Becher!', sub:'Kurz sichtbar gewesen – Technischer Fehler.' },
+  { emoji:'🍺', title:'Becher kippt um!',               sub:'Alle Würfel kurz aufgedeckt – Technischer Fehler.' },
+];
+
+function maybeTF(onContinue) {
+  if (Math.random() > 0.05) { onContinue(); return; }
+  const pi = G.round.order[G.round.pos];
+  G.players[pi].tf++;
+  const ev = TF_EVENTS[Math.floor(Math.random() * TF_EVENTS.length)];
+  const bier = G.players[pi].tf >= 3;
+  if (bier) G.players[pi].tf = 0;
+  showTFOverlay(ev, G.players[pi].name, bier, onContinue);
+}
+
+function showTFOverlay(ev, name, bier, onContinue) {
+  const el = document.createElement('div');
+  el.className = 'tf-overlay';
+  if (bier) {
+    el.innerHTML = `
+      <div class="tf-emoji">🍺</div>
+      <div class="tf-title gold">BIER LEEREN!</div>
+      <div class="tf-sub"><strong>${name}</strong> hat 3 Technische Fehler gesammelt!<br><br>${ev.emoji} ${ev.title}</div>
+      <button class="tf-btn" style="background:linear-gradient(135deg,var(--gold),#b8900c);color:#1a0e00" id="tfBtn">
+        Prost! 🍻
+      </button>`;
+  } else {
+    const pi = G.round.order[G.round.pos];
+    const tfCount = G.players[pi].tf;
+    el.innerHTML = `
+      <div class="tf-emoji">${ev.emoji}</div>
+      <div class="tf-title red">Technischer Fehler!</div>
+      <div class="tf-sub">${ev.title}<br><small>${ev.sub}</small></div>
+      <div class="tf-counter">TF ${tfCount} / 3 — ${name}</div>
+      <button class="tf-btn" style="background:#243a24;color:var(--cream);border:1px solid #3a6a3a" id="tfBtn">
+        OK, weiter
+      </button>`;
+  }
+  document.body.appendChild(el);
+  document.getElementById('tfBtn').onclick = () => { el.remove(); onContinue(); };
+}
+
+// ── TOAST ──
+let toastTimeout;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+// ── INIT MENU ──
+addField('');
+addField('');
+</script>
+</body>
+</html>
