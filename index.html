@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Schocken</title>
+<title>Würfelspiele</title>
 <style>
 :root {
   --green: #1a3a1a;
@@ -245,6 +245,96 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 }
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* ── HOME ── */
+#home { justify-content: center; gap: 24px; }
+.game-btn {
+  height: 88px; border-radius: 20px; font-size: 1.4em; font-weight: 800;
+  cursor: pointer; width: 100%; border: none; letter-spacing: 1px;
+  transition: transform 0.08s, box-shadow 0.1s;
+}
+.game-btn:active { transform: scale(0.96); }
+
+/* ── KNIFFEL SCORESHEET ── */
+.ks-header {
+  background: #253a25; border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 10px; border: 1px solid #3a6a3a;
+}
+.ks-total { font-size: 1.4em; font-weight: bold; color: var(--gold); }
+.ks-bonus-info { font-size: 0.82em; color: #888; margin-top: 3px; }
+.ks-section-title {
+  font-size: 0.72em; font-weight: 700; color: #555; letter-spacing: 2px;
+  text-transform: uppercase; padding: 12px 4px 4px;
+}
+.ks-row {
+  display: flex; align-items: center; padding: 11px 12px;
+  border-radius: 10px; background: #182818; margin-bottom: 4px;
+  cursor: pointer; transition: background 0.12s; gap: 8px;
+}
+.ks-row:active { background: #253a25; }
+.ks-row.ks-filled { opacity: 0.45; cursor: default; pointer-events: none; }
+.ks-row.ks-crossed { opacity: 0.3; cursor: default; pointer-events: none; text-decoration: line-through; }
+.ks-row.ks-bonus  { cursor: default; background: #131f13; }
+.ks-label { flex: 1; font-size: 0.95em; }
+.ks-suggest { font-size: 0.88em; color: #5a9a5a; font-weight: 600; }
+.ks-suggest.zero { color: #555; }
+.ks-score { font-size: 0.9em; color: var(--gold); font-weight: bold; }
+.ks-expand {
+  background: #1e361e; border-radius: 10px; padding: 14px;
+  margin-bottom: 4px; border: 1px solid #3a6a3a;
+}
+.ks-expand-label { font-size: 0.88em; color: #aaa; margin-bottom: 10px; }
+.ks-expand-pts { font-size: 1.8em; font-weight: bold; color: var(--gold); text-align: center; padding: 6px 0 12px; }
+.ks-counter { display: flex; align-items: center; gap: 16px; justify-content: center; margin-bottom: 12px; }
+.ks-count-btn {
+  width: 46px; height: 46px; border-radius: 10px; border: none;
+  background: #2a4a2a; color: var(--cream); font-size: 1.4em; cursor: pointer;
+}
+.ks-count-val { font-size: 1.8em; font-weight: bold; color: var(--gold); min-width: 44px; text-align: center; }
+.ks-sum-input {
+  height: 50px; border-radius: 10px; border: 2px solid #2a4a2a; background: #182818;
+  color: var(--cream); font-size: 1.1em; padding: 0 14px; width: 100%; outline: none; margin-bottom: 12px;
+}
+.ks-sum-input:focus { border-color: var(--gold); }
+.ks-expand-btns { display: flex; gap: 8px; }
+.btn-mode-active { background: linear-gradient(135deg,var(--gold) 0%,#b8900c 100%) !important; color: #1a0e00 !important; }
+
+/* ── SHARED SCORESHEET ── */
+.ksg-row { display: flex; gap: 3px; margin-bottom: 3px; align-items: stretch; }
+.ksg-label {
+  flex: 1.4; font-size: 0.82em; background: #182818; border-radius: 8px;
+  display: flex; align-items: center; padding: 7px 8px; color: #ccc;
+}
+.ksg-cell {
+  flex: 1; min-width: 0; text-align: center; border-radius: 8px;
+  background: #182818; padding: 7px 4px; font-size: 0.85em; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background 0.12s;
+}
+.ksg-cell:active { background: #253a25; }
+.ksg-cell.filled { color: var(--gold); font-weight: 600; cursor: default; }
+.ksg-cell.crossed { color: #444; font-size: 0.75em; cursor: default; }
+.ksg-cell.empty { color: #2a4a2a; }
+.ksg-head {
+  flex: 1; min-width: 0; text-align: center; font-size: 0.78em; font-weight: 700;
+  color: var(--gold); padding: 6px 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.ksg-head-label { flex: 1.4; }
+.ksg-section {
+  font-size: 0.68em; font-weight: 700; color: #555; letter-spacing: 2px;
+  text-transform: uppercase; padding: 8px 4px 2px; flex: 1;
+}
+.ksg-bonus-cell {
+  flex: 1; text-align: center; font-size: 0.8em; padding: 6px 4px;
+  border-radius: 8px; background: #131f13; color: #5a8a5a;
+}
+.ksg-total-row { display: flex; gap: 3px; margin-bottom: 8px; }
+.ksg-total-cell {
+  flex: 1; background: #0d1a0d; border-radius: 10px; padding: 8px 6px;
+  text-align: center; border: 1px solid #2a4a2a;
+}
+.ksg-total-name { font-size: 0.7em; color: #666; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ksg-total-pts { font-size: 1.15em; font-weight: bold; color: var(--gold); }
+.ksg-total-sub { font-size: 0.65em; color: #555; margin-top: 1px; }
+
 /* ── UTILS ── */
 .fade-in { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
@@ -258,8 +348,18 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 
 <div id="toast"></div>
 
-<!-- ════════════════════ MENU ════════════════════ -->
-<div class="screen active" id="menu">
+<!-- ════════════════════ HOME ════════════════════ -->
+<div class="screen active" id="home">
+  <div class="spacer"></div>
+  <h1 style="letter-spacing:4px">WÜRFELSPIELE</h1>
+  <p class="subtitle">Wähle dein Spiel</p>
+  <button class="game-btn btn-primary" onclick="showScreen('menu')">🎲 SCHOCKEN</button>
+  <button class="game-btn btn-ghost" onclick="gotoKniffel()">🎯 KNIFFEL</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ MENU (SCHOCKEN) ════════════════════ -->
+<div class="screen" id="menu">
   <h1>SCHOCKEN</h1>
   <p class="subtitle">Spielernamen eingeben · Reihenfolge = Spielreihenfolge</p>
   <div class="card">
@@ -348,6 +448,77 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
   <p id="goSub" style="text-align:center;color:#888"></p>
   <div class="standings-list" id="goStandings"></div>
   <button class="btn btn-primary" onclick="location.reload()" style="margin-top:8px">Neues Spiel</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ KNIFFEL MENU ════════════════════ -->
+<div class="screen" id="kMenu">
+  <h1 style="font-size:2em;padding-top:16px">KNIFFEL</h1>
+  <div class="card">
+    <h3 style="margin-bottom:12px">Spielmodus</h3>
+    <div class="row">
+      <button class="btn btn-secondary" id="modeMitBtn" onclick="setKMode('mit')">🎲 Mit Würfel</button>
+      <button class="btn btn-secondary" id="modeOhneBtn" onclick="setKMode('ohne')">📝 Nur Scoresheet</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:10px">Spieler · Reihenfolge = Spielreihenfolge</h3>
+    <div id="kPlayerList"></div>
+    <button class="btn btn-ghost btn-sm mt8" onclick="addKField()">+ Spieler hinzufügen</button>
+  </div>
+  <button class="btn btn-primary" id="kStartBtn" onclick="startKniffel()" disabled>Spiel starten</button>
+  <button class="btn btn-secondary btn-sm" onclick="showScreen('home')">← Zurück</button>
+</div>
+
+<!-- ════════════════════ KNIFFEL HANDOFF ════════════════════ -->
+<div class="screen" id="kHandoff">
+  <div class="spacer"></div>
+  <div class="handoff-icon">🎯</div>
+  <div class="handoff-name" id="kHandoffName"></div>
+  <div class="handoff-sub" id="kHandoffSub">ist dran!</div>
+  <button class="btn btn-primary" onclick="startKTurn()" style="margin-top:10px" id="kHandoffBtn">Los geht's!</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ KNIFFEL GAME ════════════════════ -->
+<div class="screen" id="kGame">
+  <div class="top-bar">
+    <span class="phase-badge" id="kRoundBadge">Runde 1/13</span>
+    <span id="kPlayerBadge" style="color:var(--gold);font-weight:bold;font-size:0.9em"></span>
+  </div>
+  <div id="kDiceArea" class="fade-in"></div>
+  <div class="dice-hint" id="kDiceHint" style="display:none">Tippe zum Festhalten (gold)</div>
+  <div id="kActionRow" style="display:flex;gap:10px"></div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">Mögliche Punkte</h3>
+    <div id="kSuggestions"></div>
+  </div>
+</div>
+
+<!-- ════════════════════ KNIFFEL SCORESHEET ════════════════════ -->
+<div class="screen" id="kScore" style="padding-bottom:40px">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px">
+    <h2 id="kScoreTitle" style="font-size:1.15em">Kategorie wählen</h2>
+    <span id="kRoundInfo" style="font-size:0.82em;color:#888"></span>
+  </div>
+  <div id="kScoreDiceRow"></div>
+  <div id="kScoreSheet"></div>
+</div>
+
+<!-- ════════════════════ KNIFFEL SHARED SCORESHEET ════════════════════ -->
+<div class="screen" id="kShared" style="padding-bottom:50px;gap:6px">
+  <div id="kSharedTop"></div>
+  <div id="kSharedGrid"></div>
+  <button class="btn btn-ghost btn-sm" onclick="kSharedEnd()">Spiel beenden 🏆</button>
+</div>
+
+<!-- ════════════════════ KNIFFEL END ════════════════════ -->
+<div class="screen" id="kEnd">
+  <div class="spacer"></div>
+  <div class="big-emoji">🏆</div>
+  <h2 id="kEndTitle">Spiel vorbei!</h2>
+  <div class="standings-list" id="kEndList"></div>
+  <button class="btn btn-primary" onclick="showScreen('home')" style="margin-top:12px">Neues Spiel</button>
   <div class="spacer"></div>
 </div>
 
@@ -1058,6 +1229,674 @@ function toast(msg) {
   el.classList.add('show');
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+// ══════════════════════════════════════════════
+//  KNIFFEL
+// ══════════════════════════════════════════════
+
+const K_CATS = [
+  {id:'ones',      label:'Einser',        section:'upper', face:1},
+  {id:'twos',      label:'Zweier',        section:'upper', face:2},
+  {id:'threes',    label:'Dreier',        section:'upper', face:3},
+  {id:'fours',     label:'Vierer',        section:'upper', face:4},
+  {id:'fives',     label:'Fünfer',        section:'upper', face:5},
+  {id:'sixes',     label:'Sechser',       section:'upper', face:6},
+  {id:'threeKind', label:'Dreierpasch',   section:'lower', inputType:'sum'},
+  {id:'fourKind',  label:'Viererpasch',   section:'lower', inputType:'sum'},
+  {id:'fullHouse', label:'Full House',    section:'lower', fixedVal:25},
+  {id:'smallStr',  label:'Kleine Straße', section:'lower', fixedVal:30},
+  {id:'largeStr',  label:'Große Straße',  section:'lower', fixedVal:40},
+  {id:'kniffel',   label:'Kniffel!',      section:'lower', fixedVal:50},
+  {id:'chance',    label:'Chance',        section:'lower', inputType:'sum'},
+];
+
+let KG = null;
+let kMode = 'mit';
+let kFieldCount = 0;
+let kSelectedCat = null;
+let kCounts = {};
+
+// ── KNIFFEL MENU ──
+function gotoKniffel() {
+  kMode = 'mit';
+  kFieldCount = 0;
+  document.getElementById('kPlayerList').innerHTML = '';
+  updateKModeButtons();
+  addKField(); addKField();
+  showScreen('kMenu');
+}
+
+function setKMode(m) { kMode = m; updateKModeButtons(); }
+
+function updateKModeButtons() {
+  document.getElementById('modeMitBtn').classList.toggle('btn-mode-active', kMode==='mit');
+  document.getElementById('modeOhneBtn').classList.toggle('btn-mode-active', kMode==='ohne');
+}
+
+function addKField(name='') {
+  kFieldCount++;
+  const id = 'kpf'+kFieldCount;
+  const div = document.createElement('div');
+  div.className = 'player-entry fade-in'; div.id = id;
+  div.innerHTML = `<input class="input" type="text" placeholder="Name Spieler ${kFieldCount}"
+    value="${name}" oninput="chkKStart()" />
+    <button class="del-btn" onclick="rmKField('${id}')">✕</button>`;
+  document.getElementById('kPlayerList').appendChild(div);
+  chkKStart();
+  if (!name) div.querySelector('input').focus();
+}
+function rmKField(id) { document.getElementById(id)?.remove(); chkKStart(); }
+function chkKStart() {
+  const n = [...document.querySelectorAll('#kPlayerList input')].filter(i=>i.value.trim()).length;
+  document.getElementById('kStartBtn').disabled = n < 1;
+}
+
+function startKniffel() {
+  const names = [...document.querySelectorAll('#kPlayerList input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+  if (!names.length) return;
+  const emptyScores = {};
+  K_CATS.forEach(c => emptyScores[c.id] = null);
+  KG = {
+    mode: kMode,
+    players: names.map(n => ({name: n, scores: {...emptyScores}})),
+    currentPlayer: 0,
+    turn: null
+  };
+  if (KG.mode === 'ohne') showKShared();
+  else showKHandoff();
+}
+
+// ── KNIFFEL SHARED SCORESHEET (ohne Würfel) ──
+let kSharedCountTemp = 0;
+
+function showKShared() {
+  renderKShared();
+  showScreen('kShared');
+}
+
+function renderKShared() {
+  const players = KG.players;
+  const n = players.length;
+
+  // Totals bar
+  let topHtml = `<div class="ksg-total-row">`;
+  for (const p of players) {
+    const total = kCalcTotal(p.scores);
+    let upper = 0;
+    ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+      const v = p.scores[id]; if (v !== null && v !== -1) upper += v;
+    });
+    const toBonus = Math.max(0, 63 - upper);
+    topHtml += `<div class="ksg-total-cell">
+      <div class="ksg-total-name">${p.name}</div>
+      <div class="ksg-total-pts">${total}</div>
+      <div class="ksg-total-sub">${upper>=63?'✅ Bonus':'oben: '+upper+'/63'}</div>
+    </div>`;
+  }
+  topHtml += `</div>`;
+  document.getElementById('kSharedTop').innerHTML = topHtml;
+
+  // Grid
+  // Header row
+  let html = `<div class="ksg-row">
+    <div class="ksg-label ksg-head-label" style="background:none"></div>
+    ${players.map(p=>`<div class="ksg-head">${p.name}</div>`).join('')}
+  </div>`;
+
+  // Upper section
+  html += `<div class="ksg-row"><div class="ksg-section">Obere Sektion</div>${players.map(()=>'<div style="flex:1"></div>').join('')}</div>`;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    const cat = K_CATS.find(c=>c.id===id);
+    html += `<div class="ksg-row"><div class="ksg-label">${cat.label}</div>`;
+    players.forEach((p, pi) => { html += ksgCell(pi, id, p.scores[id]); });
+    html += `</div>`;
+  });
+
+  // Bonus row
+  html += `<div class="ksg-row"><div class="ksg-label" style="color:#555;font-size:0.75em">Bonus (+35 bei ≥63)</div>`;
+  players.forEach(p => {
+    let upper = 0;
+    ['ones','twos','threes','fours','fives','sixes'].forEach(id => { const v=p.scores[id]; if(v!==null&&v!==-1) upper+=v; });
+    html += `<div class="ksg-bonus-cell">${upper>=63?'+35':'–'}</div>`;
+  });
+  html += `</div>`;
+
+  // Divider
+  html += `<div style="height:1px;background:#2a3a2a;margin:4px 0"></div>`;
+
+  // Lower section
+  html += `<div class="ksg-row"><div class="ksg-section">Untere Sektion</div>${players.map(()=>'<div style="flex:1"></div>').join('')}</div>`;
+  ['threeKind','fourKind','fullHouse','smallStr','largeStr','kniffel','chance'].forEach(id => {
+    const cat = K_CATS.find(c=>c.id===id);
+    html += `<div class="ksg-row"><div class="ksg-label">${cat.label}</div>`;
+    players.forEach((p, pi) => { html += ksgCell(pi, id, p.scores[id]); });
+    html += `</div>`;
+  });
+
+  document.getElementById('kSharedGrid').innerHTML = html;
+}
+
+function ksgCell(pi, catId, val) {
+  if (val === null)
+    return `<div class="ksg-cell empty" onclick="kSharedTap(${pi},'${catId}')">+</div>`;
+  if (val === -1)
+    return `<div class="ksg-cell crossed">–</div>`;
+  return `<div class="ksg-cell filled">${val}</div>`;
+}
+
+function kSharedTap(pi, catId) {
+  const cat = K_CATS.find(c=>c.id===catId);
+  const p = KG.players[pi];
+  kSharedCountTemp = 0;
+
+  const el = document.createElement('div');
+  el.className = 'tf-overlay';
+  el.style.zIndex = '700';
+
+  let inputHTML = '';
+  if (cat.fixedVal !== undefined) {
+    inputHTML = `<div style="display:flex;gap:10px;width:100%;max-width:320px">
+      <button class="btn btn-primary" style="flex:1" onclick="kSharedConfirm(${pi},'${catId}',${cat.fixedVal})">✓ Erreicht<br><small>${cat.fixedVal} Pkt</small></button>
+      <button class="btn btn-danger" style="flex:1" onclick="kSharedConfirm(${pi},'${catId}',-1)">✕ Streichen</button>
+    </div>`;
+  } else if (cat.face !== undefined) {
+    inputHTML = `<div style="text-align:center;width:100%;max-width:280px">
+      <div style="color:#888;font-size:0.85em;margin-bottom:10px">Wie viele ${cat.face}er gewürfelt?</div>
+      <div class="ks-counter" style="justify-content:center">
+        <button class="ks-count-btn" onclick="kSharedCount(-1,${cat.face})">−</button>
+        <span class="ks-count-val" id="ksharedCount">0</span>
+        <button class="ks-count-btn" onclick="kSharedCount(+1,${cat.face})">+</button>
+      </div>
+      <div id="ksharedPts" style="color:var(--gold);font-size:1.1em;margin-bottom:14px">= 0 Punkte</div>
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="kSharedConfirmUpper(${pi},'${catId}',${cat.face})">✓ Bestätigen</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kSharedConfirm(${pi},'${catId}',-1)">✕ Streichen</button>
+      </div>
+    </div>`;
+  } else {
+    inputHTML = `<div style="width:100%;max-width:280px">
+      <div style="color:#888;font-size:0.85em;margin-bottom:10px">Augensumme eingeben</div>
+      <input class="ks-sum-input" type="number" min="0" max="30" id="ksharedSum" placeholder="Summe..." inputmode="numeric" />
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="kSharedConfirmSum(${pi},'${catId}')">✓ Bestätigen</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kSharedConfirm(${pi},'${catId}',-1)">✕ Streichen</button>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = `
+    <div style="color:var(--gold);font-size:1.05em;font-weight:bold;margin-bottom:4px">${p.name}</div>
+    <div style="color:#aaa;font-size:0.9em;margin-bottom:16px">${cat.label}</div>
+    ${inputHTML}
+    <button class="btn btn-secondary btn-sm" style="margin-top:14px;max-width:200px" onclick="document.querySelector('.tf-overlay').remove()">Abbrechen</button>`;
+  document.body.appendChild(el);
+}
+
+function kSharedCount(delta, face) {
+  kSharedCountTemp = Math.max(0, Math.min(5, kSharedCountTemp + delta));
+  const el = document.getElementById('ksharedCount');
+  const pts = document.getElementById('ksharedPts');
+  if (el) el.textContent = kSharedCountTemp;
+  if (pts) pts.textContent = `= ${kSharedCountTemp * face} Punkte`;
+}
+
+function kSharedConfirmUpper(pi, catId, face) {
+  kSharedConfirm(pi, catId, kSharedCountTemp * face);
+}
+
+function kSharedConfirmSum(pi, catId) {
+  const val = parseInt(document.getElementById('ksharedSum')?.value) || 0;
+  kSharedConfirm(pi, catId, Math.max(0, val));
+}
+
+function kSharedConfirm(pi, catId, value) {
+  document.querySelector('.tf-overlay')?.remove();
+  KG.players[pi].scores[catId] = value;
+  renderKShared();
+}
+
+function kSharedEnd() {
+  showKEnd();
+}
+
+// ── KNIFFEL HANDOFF ──
+function showKHandoff() {
+  const p = KG.players[KG.currentPlayer];
+  const filled = Object.values(p.scores).filter(v=>v!==null).length;
+  document.getElementById('kHandoffName').textContent = p.name;
+  document.getElementById('kHandoffSub').textContent = `Runde ${filled+1} von 13`;
+  document.getElementById('kHandoffBtn').textContent =
+    KG.mode === 'mit' ? 'Becher heben 🎲' : 'Scoresheet öffnen 📝';
+  showScreen('kHandoff');
+}
+
+function startKTurn() {
+  KG.turn = { dice:[1,1,1,1,1], kept:[false,false,false,false,false], rolls:0, rolling:false };
+  kSelectedCat = null;
+  if (KG.mode === 'mit') { renderKGame(); showScreen('kGame'); }
+  else showKScore();
+}
+
+// ── KNIFFEL ROLLING ──
+function renderKGame() {
+  const p = KG.players[KG.currentPlayer];
+  const filled = Object.values(p.scores).filter(v=>v!==null).length;
+  document.getElementById('kRoundBadge').textContent = `Runde ${filled+1}/13`;
+  document.getElementById('kPlayerBadge').textContent = p.name;
+  renderKDiceArea();
+  renderKActions();
+  renderKSuggestions();
+}
+
+function renderKDiceArea() {
+  const t = KG.turn;
+  const area = document.getElementById('kDiceArea');
+  if (t.rolls === 0) {
+    area.innerHTML = `<div class="cup-wrap"><div class="cup">
+      <div class="cup-body"><div class="cup-rim"></div></div>
+      <div class="cup-base"></div></div></div>`;
+    document.getElementById('kDiceHint').style.display = 'none';
+  } else {
+    let html = '<div class="dice-row">';
+    for (let i=0;i<5;i++) html += kDieHTML(i, t.dice[i], t.kept[i], false);
+    html += '</div>';
+    area.innerHTML = html;
+    document.getElementById('kDiceHint').style.display = t.rolls < 3 ? '' : 'none';
+  }
+}
+
+function kDieHTML(idx, val, kept, rolling) {
+  const pips = PIPS[val] || PIPS[1];
+  let cells = '';
+  for (let i=1;i<=9;i++) cells += `<div class="pc">${pips.includes(i)?'<div class="pp"></div>':''}</div>`;
+  return `<div class="dice-scene" onclick="kToggleKeep(${idx})">
+    <div class="die2 ${kept?'kept':''} ${rolling?'rolling':''}" id="kd${idx}">${cells}</div></div>`;
+}
+
+function kToggleKeep(i) {
+  const t = KG.turn;
+  if (t.rolls === 0 || t.rolling) return;
+  t.kept[i] = !t.kept[i];
+  renderKGame();
+}
+
+function renderKActions() {
+  const t = KG.turn;
+  const row = document.getElementById('kActionRow');
+  if (t.rolls === 0) {
+    row.innerHTML = `<button class="btn btn-primary" style="width:100%" onclick="kDoRoll()">Würfeln</button>`;
+  } else if (t.rolls >= 3) {
+    row.innerHTML = `<button class="btn btn-primary" style="width:100%" onclick="showKScore()">Fertig → Kategorie wählen</button>`;
+  } else {
+    row.innerHTML = `
+      <button class="btn btn-secondary" style="flex:1" onclick="kDoRoll()">Nochmal würfeln (${t.rolls}/3)</button>
+      <button class="btn btn-primary" style="flex:1" onclick="showKScore()">Fertig →</button>`;
+  }
+}
+
+function kDoRoll() {
+  const t = KG.turn;
+  if (t.rolling || t.rolls >= 3) return;
+  t.rolling = true; t.rolls++;
+  const newVals = [...t.dice];
+  for (let i=0;i<5;i++) if (!t.kept[i]) newVals[i] = Math.ceil(Math.random()*6);
+  // animation
+  const area = document.getElementById('kDiceArea');
+  let html = '<div class="dice-row">';
+  for (let i=0;i<5;i++) html += kDieHTML(i, t.dice[i], t.kept[i], !t.kept[i]);
+  html += '</div>';
+  area.innerHTML = html;
+  document.getElementById('kDiceHint').style.display = 'none';
+  setTimeout(() => { t.dice = newVals; t.rolling = false; renderKGame(); }, 580);
+}
+
+function renderKSuggestions() {
+  const t = KG.turn;
+  const p = KG.players[KG.currentPlayer];
+  const didRoll = t.rolls > 0;
+
+  // Compute current totals
+  let upperFilled = 0, lowerFilled = 0;
+  let upperSum = 0, lowerSum = 0;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    const v = p.scores[id];
+    if (v !== null && v !== -1) { upperSum += v; upperFilled++; }
+  });
+  ['threeKind','fourKind','fullHouse','smallStr','largeStr','kniffel','chance'].forEach(id => {
+    const v = p.scores[id];
+    if (v !== null && v !== -1) { lowerSum += v; }
+  });
+  const bonus = upperSum >= 63 ? 35 : 0;
+  const total = kCalcTotal(p.scores);
+  const toBonus = Math.max(0, 63 - upperSum);
+
+  // Header with totals
+  let html = `<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
+      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Gesamt</div>
+      <div style="font-size:1.3em;font-weight:bold;color:var(--gold)">${total}</div>
+    </div>
+    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
+      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Oben</div>
+      <div style="font-size:1.3em;font-weight:bold;color:${upperSum>=63?'#5a9a5a':'var(--cream)'}">${upperSum}<span style="font-size:0.55em;color:#555">/63</span></div>
+      <div style="font-size:0.68em;color:#555;margin-top:1px">${upperSum>=63?'✅ Bonus':'noch '+toBonus}</div>
+    </div>
+    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
+      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Unten</div>
+      <div style="font-size:1.3em;font-weight:bold;color:var(--cream)">${lowerSum}</div>
+    </div>
+  </div>`;
+
+  if (!didRoll) {
+    html += '<p style="color:#555;font-size:0.85em;text-align:center;padding:6px 0">Würfle zuerst...</p>';
+    document.getElementById('kSuggestions').innerHTML = html;
+    return;
+  }
+
+  // Upper section
+  html += `<div style="font-size:0.7em;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;padding:4px 4px 3px">Obere Sektion</div>`;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    const cat = K_CATS.find(c=>c.id===id);
+    const val = p.scores[id];
+    if (val !== null) {
+      html += `<div class="ks-row ks-filled"><span class="ks-label">${cat.label}</span><span class="ks-score">${val===-1?'–':val}</span></div>`;
+    } else {
+      const pts = kCalcScore(id, t.dice);
+      html += `<div class="ks-row" onclick="kOpenFromGame('${id}')">
+        <span class="ks-label">${cat.label}</span>
+        <span class="ks-suggest ${pts===0?'zero':''}">${pts} Pkt</span>
+      </div>`;
+    }
+  });
+
+  // Divider
+  html += `<div style="height:1px;background:#2a3a2a;margin:6px 0"></div>`;
+
+  // Lower section
+  html += `<div style="font-size:0.7em;font-weight:700;color:#555;letter-spacing:2px;text-transform:uppercase;padding:4px 4px 3px">Untere Sektion</div>`;
+  ['threeKind','fourKind','fullHouse','smallStr','largeStr','kniffel','chance'].forEach(id => {
+    const cat = K_CATS.find(c=>c.id===id);
+    const val = p.scores[id];
+    if (val !== null) {
+      html += `<div class="ks-row ks-filled"><span class="ks-label">${cat.label}</span><span class="ks-score">${val===-1?'–':val}</span></div>`;
+    } else {
+      const pts = kCalcScore(id, t.dice);
+      html += `<div class="ks-row" onclick="kOpenFromGame('${id}')">
+        <span class="ks-label">${cat.label}</span>
+        <span class="ks-suggest ${pts===0?'zero':''}">${pts} Pkt</span>
+      </div>`;
+    }
+  });
+
+  document.getElementById('kSuggestions').innerHTML = html;
+}
+
+function kOpenFromGame(catId) {
+  // Tap on suggestion → go to scoresheet with this row pre-selected
+  kSelectedCat = catId;
+  showKScore();
+}
+
+// ── KNIFFEL SCORESHEET ──
+function showKScore() {
+  const p = KG.players[KG.currentPlayer];
+  const filled = Object.values(p.scores).filter(v=>v!==null).length;
+  document.getElementById('kScoreTitle').textContent = p.name + ' – Kategorie wählen';
+  document.getElementById('kRoundInfo').textContent = `Runde ${filled+1}/13`;
+  // Show final dice at top
+  const t = KG.turn;
+  const diceRow = document.getElementById('kScoreDiceRow');
+  if (t && t.rolls > 0) {
+    let html = '<div class="dice-row" style="padding:2px 0 4px">';
+    for (let i=0;i<5;i++) {
+      const pips = PIPS[t.dice[i]] || PIPS[1];
+      let cells = '';
+      for (let j=1;j<=9;j++) cells += `<div class="pc">${pips.includes(j)?'<div class="pp"></div>':''}</div>`;
+      html += `<div class="small-die"><div class="die2 die2-sm ${t.kept[i]?'kept':''}">${cells}</div></div>`;
+    }
+    html += '</div>';
+    diceRow.innerHTML = html;
+  } else {
+    diceRow.innerHTML = '';
+  }
+  renderKScoreSheet();
+  showScreen('kScore');
+}
+
+function renderKScoreSheet() {
+  const p = KG.players[KG.currentPlayer];
+  const t = KG.turn;
+  const dice = (t && t.rolls > 0) ? t.dice : null;
+  const didRoll = !!dice;
+
+  let upperSum = 0;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    const v = p.scores[id];
+    if (v !== null && v !== -1) upperSum += v;
+  });
+  const hasBonus = upperSum >= 63;
+  const toBonus = Math.max(0, 63 - upperSum);
+  const total = kCalcTotal(p.scores);
+
+  let html = `<div class="ks-header">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span class="ks-total">${total} Punkte</span>
+      <span style="color:#888;font-size:0.85em">Oben: ${upperSum}/63</span>
+    </div>
+    <div class="ks-bonus-info">${hasBonus
+      ? '✅ Bonus +35 erreicht!'
+      : `Noch ${toBonus} bis Bonus (+35)`}</div>
+  </div>`;
+
+  html += `<div class="ks-section-title">Obere Sektion</div>`;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    html += kRenderRow(id, p, dice, didRoll);
+  });
+  html += `<div class="ks-row ks-bonus">
+    <span class="ks-label">Bonus (≥63 oben)</span>
+    <span class="ks-score" style="color:${hasBonus?'#5a9a5a':'#555'}">${hasBonus?'+35':'–'}</span>
+  </div>`;
+
+  html += `<div class="ks-section-title">Untere Sektion</div>`;
+  ['threeKind','fourKind','fullHouse','smallStr','largeStr','kniffel','chance'].forEach(id => {
+    html += kRenderRow(id, p, dice, didRoll);
+  });
+
+  document.getElementById('kScoreSheet').innerHTML = html;
+}
+
+function kRenderRow(catId, p, dice, didRoll) {
+  const cat = K_CATS.find(c=>c.id===catId);
+  const val = p.scores[catId];
+
+  if (val !== null) {
+    const crossed = val === -1;
+    return `<div class="ks-row ${crossed?'ks-crossed':'ks-filled'}">
+      <span class="ks-label">${cat.label}</span>
+      <span class="ks-score">${crossed ? '–' : val}</span>
+    </div>`;
+  }
+
+  if (kSelectedCat === catId) {
+    return kRenderExpanded(cat, dice, didRoll);
+  }
+
+  let right = '';
+  if (KG.mode === 'mit' && didRoll) {
+    const pts = kCalcScore(catId, dice);
+    right = `<span class="ks-suggest ${pts===0?'zero':''}">${pts}</span>`;
+  } else {
+    right = `<span style="color:#444;font-size:0.8em">–</span>`;
+  }
+
+  return `<div class="ks-row" onclick="kSelectCat('${catId}')">
+    <span class="ks-label">${cat.label}</span>
+    ${right}
+  </div>`;
+}
+
+function kRenderExpanded(cat, dice, didRoll) {
+  // Mit Würfel: show calculated score + confirm
+  if (KG.mode === 'mit' && didRoll) {
+    const pts = kCalcScore(cat.id, dice);
+    return `<div class="ks-expand">
+      <div class="ks-expand-label">${cat.label}</div>
+      <div class="ks-expand-pts">${pts} Punkte</div>
+      <div class="ks-expand-btns">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="kConfirmScore('${cat.id}',${pts})">✓ Eintragen</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kCrossOut('${cat.id}')">✕ Streichen</button>
+      </div>
+    </div>`;
+  }
+  // Ohne Würfel: fixedVal
+  if (cat.fixedVal !== undefined) {
+    return `<div class="ks-expand">
+      <div class="ks-expand-label">${cat.label} – ${cat.fixedVal} Punkte bei Erfolg</div>
+      <div class="ks-expand-btns">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="kConfirmScore('${cat.id}',${cat.fixedVal})">✓ Erreicht</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kCrossOut('${cat.id}')">✕ Streichen</button>
+      </div>
+    </div>`;
+  }
+  // Ohne Würfel: upper (count)
+  if (cat.face !== undefined) {
+    const cur = kCounts[cat.id] || 0;
+    return `<div class="ks-expand">
+      <div class="ks-expand-label">${cat.label}: Wie viele ${cat.face}er gewürfelt?</div>
+      <div class="ks-counter">
+        <button class="ks-count-btn" onclick="kCountChange('${cat.id}',-1)">−</button>
+        <span class="ks-count-val" id="kcount_${cat.id}">${cur}</span>
+        <button class="ks-count-btn" onclick="kCountChange('${cat.id}',+1)">+</button>
+      </div>
+      <div style="text-align:center;color:var(--gold);font-size:1.1em;margin-bottom:10px">
+        = ${cur * cat.face} Punkte
+      </div>
+      <div class="ks-expand-btns">
+        <button class="btn btn-primary btn-sm" style="flex:1" onclick="kConfirmUpper('${cat.id}',${cat.face})">✓ Bestätigen</button>
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kCrossOut('${cat.id}')">✕ Streichen</button>
+      </div>
+    </div>`;
+  }
+  // Ohne Würfel: sum input
+  return `<div class="ks-expand">
+    <div class="ks-expand-label">${cat.label}: Augensumme eingeben</div>
+    <input class="ks-sum-input" type="number" min="0" max="30" id="ksum_${cat.id}" placeholder="Summe..." inputmode="numeric" />
+    <div class="ks-expand-btns">
+      <button class="btn btn-primary btn-sm" style="flex:1" onclick="kConfirmSum('${cat.id}')">✓ Bestätigen</button>
+      <button class="btn btn-danger btn-sm" style="flex:1" onclick="kCrossOut('${cat.id}')">✕ Streichen</button>
+    </div>
+  </div>`;
+}
+
+function kSelectCat(catId) {
+  kSelectedCat = kSelectedCat === catId ? null : catId;
+  kCounts[catId] = 0;
+  renderKScoreSheet();
+}
+
+function kCountChange(catId, delta) {
+  kCounts[catId] = Math.max(0, Math.min(5, (kCounts[catId]||0) + delta));
+  // Re-render just the count value and points display
+  const el = document.getElementById('kcount_' + catId);
+  if (el) {
+    const cat = K_CATS.find(c=>c.id===catId);
+    el.textContent = kCounts[catId];
+    const ptsEl = el.closest('.ks-expand')?.querySelector('div[style*="gold"]');
+    if (ptsEl) ptsEl.textContent = `= ${kCounts[catId] * cat.face} Punkte`;
+  }
+}
+
+function kConfirmUpper(catId, face) {
+  kConfirmScore(catId, (kCounts[catId]||0) * face);
+}
+
+function kConfirmSum(catId) {
+  const val = parseInt(document.getElementById('ksum_'+catId)?.value) || 0;
+  kConfirmScore(catId, Math.max(0, val));
+}
+
+function kConfirmScore(catId, value) {
+  KG.players[KG.currentPlayer].scores[catId] = value;
+  kSelectedCat = null;
+  kAdvance();
+}
+
+function kCrossOut(catId) {
+  KG.players[KG.currentPlayer].scores[catId] = -1;
+  kSelectedCat = null;
+  kAdvance();
+}
+
+function kAdvance() {
+  const allDone = KG.players.every(p => K_CATS.every(c => p.scores[c.id] !== null));
+  if (allDone) { showKEnd(); return; }
+  const n = KG.players.length;
+  let next = (KG.currentPlayer + 1) % n;
+  for (let tries = 0; tries < n; tries++) {
+    if (K_CATS.some(c => KG.players[next].scores[c.id] === null)) break;
+    next = (next + 1) % n;
+  }
+  KG.currentPlayer = next;
+  showKHandoff();
+}
+
+// ── KNIFFEL SCORING ──
+function kCalcScore(catId, dice) {
+  const counts = new Array(7).fill(0);
+  dice.forEach(d => counts[d]++);
+  const sum = dice.reduce((a,b)=>a+b, 0);
+  const cat = K_CATS.find(c=>c.id===catId);
+  if (cat.face !== undefined) return counts[cat.face] * cat.face;
+  switch(catId) {
+    case 'threeKind': return counts.some(c=>c>=3) ? sum : 0;
+    case 'fourKind':  return counts.some(c=>c>=4) ? sum : 0;
+    case 'fullHouse': return (counts.some(c=>c===3) && counts.some(c=>c===2)) ? 25 : 0;
+    case 'smallStr': {
+      const v = new Set(dice);
+      return [[1,2,3,4],[2,3,4,5],[3,4,5,6]].some(s=>s.every(x=>v.has(x))) ? 30 : 0;
+    }
+    case 'largeStr': {
+      const v = new Set(dice);
+      return ([[1,2,3,4,5],[2,3,4,5,6]].some(s=>s.every(x=>v.has(x)))) ? 40 : 0;
+    }
+    case 'kniffel': return counts.some(c=>c===5) ? 50 : 0;
+    case 'chance':  return sum;
+    default: return 0;
+  }
+}
+
+function kCalcTotal(scores) {
+  let upper = 0;
+  ['ones','twos','threes','fours','fives','sixes'].forEach(id => {
+    const v = scores[id];
+    if (v !== null && v !== -1) upper += v;
+  });
+  let total = upper >= 63 ? 35 : 0;
+  K_CATS.forEach(c => {
+    const v = scores[c.id];
+    if (v !== null && v !== -1) total += v;
+  });
+  return total;
+}
+
+// ── KNIFFEL END ──
+function showKEnd() {
+  const results = KG.players
+    .map(p => ({name: p.name, total: kCalcTotal(p.scores)}))
+    .sort((a,b) => b.total - a.total);
+  document.getElementById('kEndTitle').textContent =
+    results.length === 1 ? `${results[0].name}: ${results[0].total} Punkte 🎉` : `${results[0].name} gewinnt! 🎉`;
+  let html = '';
+  results.forEach((r, i) => {
+    html += `<div class="standing-row">
+      <span>${i===0?'🏆 ':''}<strong>${r.name}</strong></span>
+      <span style="color:var(--gold)">${r.total} Pkt</span>
+    </div>`;
+  });
+  document.getElementById('kEndList').innerHTML = html;
+  showScreen('kEnd');
 }
 
 // ── INIT MENU ──
