@@ -418,6 +418,74 @@ body.kniffel .kmod-undo { font-size:0.82em;color:#8a9ab0;margin-bottom:4px; }
 /* end screen */
 body.kniffel .standing-row { background:#f4f8ff; border:1px solid #dce8f5; color:#0d1e3a; }
 
+/* ── HAMBURGER MENU ── */
+#hamburger {
+  position: fixed; top: 14px; left: 14px; z-index: 800;
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(0,0,0,0.35); border: none; cursor: pointer;
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  backdrop-filter: blur(4px);
+}
+#hamburger.visible { display: flex; }
+#hamburger span {
+  display: block; width: 18px; height: 2px; background: #fff; border-radius: 2px; transition: 0.2s;
+}
+body.kniffel #hamburger { background: rgba(26,86,160,0.2); border: 1px solid rgba(26,86,160,0.25); }
+body.kniffel #hamburger span { background: #1a56a0; }
+
+#gameMenuOverlay {
+  display: none; position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(3px);
+}
+#gameMenuOverlay.open { display: flex; align-items: flex-start; justify-content: flex-start; }
+#gameMenuDrawer {
+  background: #1a2a1a; width: 260px; min-height: 100vh;
+  padding: 60px 0 30px; display: flex; flex-direction: column; gap: 4px;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.5);
+  animation: drawerIn 0.2s ease;
+}
+@keyframes drawerIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+body.kniffel #gameMenuDrawer { background: #e8f2ff; }
+#gameMenuDrawer .gm-title {
+  font-size: 0.65em; font-weight: 700; color: #555; letter-spacing: 2px;
+  text-transform: uppercase; padding: 0 20px 8px;
+}
+body.kniffel #gameMenuDrawer .gm-title { color: #8a9ab0; }
+#gameMenuDrawer .gm-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 20px; font-size: 0.95em; font-weight: 500;
+  color: var(--cream); cursor: pointer; border: none; background: none;
+  width: 100%; text-align: left; transition: background 0.15s;
+}
+#gameMenuDrawer .gm-item:hover, #gameMenuDrawer .gm-item:active { background: rgba(255,255,255,0.07); }
+body.kniffel #gameMenuDrawer .gm-item { color: #0d1e3a; }
+body.kniffel #gameMenuDrawer .gm-item:hover { background: rgba(26,86,160,0.08); }
+#gameMenuDrawer .gm-item.danger { color: #e06060; }
+body.kniffel #gameMenuDrawer .gm-item.danger { color: #c0392b; }
+#gameMenuDrawer .gm-sep { height: 1px; background: rgba(255,255,255,0.08); margin: 6px 16px; }
+body.kniffel #gameMenuDrawer .gm-sep { background: rgba(26,86,160,0.15); }
+#gameMenuDrawer .gm-icon { font-size: 1.1em; width: 22px; text-align: center; }
+
+/* rules overlay */
+#rulesOverlay {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.6); align-items: center; justify-content: center;
+}
+#rulesOverlay.open { display: flex; }
+#rulesBox {
+  background: #1a2a1a; border-radius: 16px; padding: 24px 22px; max-width: 340px; width: 90%;
+  max-height: 80vh; overflow-y: auto; position: relative;
+}
+body.kniffel #rulesBox { background: #fff; color: #0d1e3a; }
+#rulesBox h3 { margin: 0 0 14px; font-size: 1.05em; color: var(--gold); }
+body.kniffel #rulesBox h3 { color: #1a56a0; }
+#rulesBox .rules-section { margin-bottom: 14px; }
+#rulesBox .rules-section strong { font-size: 0.8em; color: #888; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+body.kniffel #rulesBox .rules-section strong { color: #8a9ab0; }
+#rulesBox ul { margin: 0; padding-left: 18px; font-size: 0.88em; line-height: 1.7; color: #ccc; }
+body.kniffel #rulesBox ul { color: #333; }
+#rulesBox .rules-close { margin-top: 16px; width: 100%; }
+
 /* ── UTILS ── */
 .fade-in { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
@@ -430,6 +498,29 @@ body.kniffel .standing-row { background:#f4f8ff; border:1px solid #dce8f5; color
 <body>
 
 <div id="toast"></div>
+
+<!-- ════════════════════ HAMBURGER ════════════════════ -->
+<button id="hamburger" onclick="openGameMenu()" aria-label="Menü">
+  <span></span><span></span><span></span>
+</button>
+
+<div id="gameMenuOverlay" onclick="closeGameMenu(event)">
+  <div id="gameMenuDrawer">
+    <div class="gm-title" id="gmGameLabel">Schocken</div>
+    <button class="gm-item" onclick="gmGoHome()"><span class="gm-icon">🏠</span> Hauptmenü</button>
+    <button class="gm-item" onclick="gmRestart()"><span class="gm-icon">🔄</span> Neu starten</button>
+    <div class="gm-sep"></div>
+    <button class="gm-item" onclick="gmRules()"><span class="gm-icon">📖</span> Regeln</button>
+  </div>
+</div>
+
+<div id="rulesOverlay" onclick="closeRules(event)">
+  <div id="rulesBox">
+    <h3 id="rulesTitle">Regeln</h3>
+    <div id="rulesContent"></div>
+    <button class="btn btn-secondary rules-close" onclick="closeRulesBtn()">Schließen</button>
+  </div>
+</div>
 
 <!-- ════════════════════ HOME ════════════════════ -->
 <div class="screen active" id="home">
@@ -758,6 +849,85 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   const kniffelScreens = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
   document.body.classList.toggle('kniffel', kniffelScreens.includes(id));
+  const menuScreens = ['handoff','game','reveal','phaseEnd','gameOver','kHandoff','kGame','kScore','kShared','kEnd'];
+  const hb = document.getElementById('hamburger');
+  hb.classList.toggle('visible', menuScreens.includes(id));
+  const isKniffel = kniffelScreens.includes(id);
+  document.getElementById('gmGameLabel').textContent = isKniffel ? 'Kniffel' : 'Schocken';
+}
+
+// ── GAME MENU ──
+function openGameMenu() {
+  document.getElementById('gameMenuOverlay').classList.add('open');
+}
+function closeGameMenu(e) {
+  if (!e || e.target === document.getElementById('gameMenuOverlay'))
+    document.getElementById('gameMenuOverlay').classList.remove('open');
+}
+function gmGoHome() {
+  closeGameMenu();
+  if (!confirm('Zurück ins Hauptmenü? Der aktuelle Spielstand geht verloren.')) return;
+  showScreen('home');
+}
+function gmRestart() {
+  closeGameMenu();
+  const isKniffel = document.body.classList.contains('kniffel');
+  if (!confirm('Spiel neu starten? Der aktuelle Spielstand geht verloren.')) return;
+  if (isKniffel) showScreen('kMenu');
+  else showScreen('menu');
+}
+function gmRules() {
+  closeGameMenu();
+  const isKniffel = document.body.classList.contains('kniffel');
+  document.getElementById('rulesTitle').textContent = isKniffel ? 'Kniffel – Regeln' : 'Schocken – Regeln';
+  document.getElementById('rulesContent').innerHTML = isKniffel ? `
+    <div class="rules-section"><strong>Ziel</strong><ul>
+      <li>13 Kategorien in Ober- und Untersektion ausfüllen</li>
+      <li>Höchste Gesamtpunktzahl gewinnt</li>
+    </ul></div>
+    <div class="rules-section"><strong>Ablauf</strong><ul>
+      <li>Bis zu 3 Würfe pro Runde</li>
+      <li>Würfel nach jedem Wurf einfrieren</li>
+      <li>Am Ende Kategorie wählen oder streichen</li>
+    </ul></div>
+    <div class="rules-section"><strong>Bonus</strong><ul>
+      <li>Obere Sektion ≥ 63 Punkte → +35 Bonus</li>
+    </ul></div>
+    <div class="rules-section"><strong>Wertung</strong><ul>
+      <li>Dreierpasch / Viererpasch: Augensumme aller 5 Würfel</li>
+      <li>Full House (3+2): 25 Punkte</li>
+      <li>Kleine Straße (4 in Folge): 30 Punkte</li>
+      <li>Große Straße (5 in Folge): 40 Punkte</li>
+      <li>Kniffel (5 gleiche): 50 Punkte</li>
+      <li>Chance: Summe aller 5 Würfel</li>
+    </ul></div>` : `
+    <div class="rules-section"><strong>Ziel</strong><ul>
+      <li>Möglichst wenige Bier-Einheiten sammeln</li>
+      <li>Wer nach mehreren Runden die meisten hat, verliert</li>
+    </ul></div>
+    <div class="rules-section"><strong>Ablauf</strong><ul>
+      <li>3 Würfe mit 3 Würfeln unter dem Becher</li>
+      <li>Bestes Ergebnis wird weitergegeben</li>
+      <li>Alle anderen müssen dieses überbieten</li>
+    </ul></div>
+    <div class="rules-section"><strong>Rangfolge (hoch → niedrig)</strong><ul>
+      <li>Schock-Out (1-2-3) → sofortiger Halbzeitverlust</li>
+      <li>Schocken: 6-6-6, 5-5-5, 4-4-4, 3-3-3, 2-2-2, 1-1-1</li>
+      <li>General: alle drei gleich</li>
+      <li>Straßen: 4-5-6 &gt; 3-4-5 &gt; 2-3-4 &gt; 1-2-3</li>
+    </ul></div>
+    <div class="rules-section"><strong>Sechsen</strong><ul>
+      <li>2 Sechsen → 1 Eins (optional umwandeln)</li>
+      <li>3 Sechsen → 2 Einsen</li>
+    </ul></div>`;
+  document.getElementById('rulesOverlay').classList.add('open');
+}
+function closeRules(e) {
+  if (!e || e.target === document.getElementById('rulesOverlay'))
+    document.getElementById('rulesOverlay').classList.remove('open');
+}
+function closeRulesBtn() {
+  document.getElementById('rulesOverlay').classList.remove('open');
 }
 
 function showHandoff() {
