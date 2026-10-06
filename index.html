@@ -246,7 +246,38 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 /* ── HOME ── */
-#home { justify-content: center; gap: 24px; }
+#home {
+  justify-content: center; gap: 16px;
+  background: linear-gradient(160deg, #1a2e1a 0%, #0d1a0d 60%, #1a1428 100%);
+  min-height: 100vh;
+}
+.home-title { font-size: 2.4em; font-weight: 900; letter-spacing: 6px; text-align: center; color: #fff; margin-bottom: 0; }
+.home-sub { text-align: center; color: #556; font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.game-card {
+  width: 100%; border-radius: 20px; padding: 0; border: none; cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+  text-align: left; overflow: hidden;
+  display: flex; align-items: stretch;
+}
+.game-card:active { transform: scale(0.97); }
+.game-card-inner {
+  display: flex; align-items: center; gap: 18px;
+  padding: 20px 22px; width: 100%;
+}
+.game-card-icon { font-size: 2.2em; flex-shrink: 0; }
+.game-card-text { flex: 1; }
+.game-card-name { font-size: 1.2em; font-weight: 800; letter-spacing: 2px; color: #fff; }
+.game-card-desc { font-size: 0.78em; margin-top: 3px; opacity: 0.7; }
+.game-card-arrow { font-size: 1.1em; opacity: 0.5; flex-shrink: 0; }
+
+.game-card.schocken { background: linear-gradient(135deg, #1e3a1e, #152a15); border: 1px solid #2a5a2a; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.game-card.schocken .game-card-desc { color: #8abf8a; }
+.game-card.kniffel  { background: linear-gradient(135deg, #1a3a5a, #0f2540); border: 1px solid #1a5090; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.game-card.kniffel  .game-card-desc { color: #7aafd4; }
+.game-card.imposter { background: linear-gradient(135deg, #2d1b4e, #1a0d36); border: 1px solid #5a2d99; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.game-card.imposter .game-card-desc { color: #b08ad4; }
+
+/* keep old game-btn for any remaining usage */
 .game-btn {
   height: 88px; border-radius: 20px; font-size: 1.4em; font-weight: 800;
   cursor: pointer; width: 100%; border: none; letter-spacing: 1px;
@@ -486,6 +517,86 @@ body.kniffel #rulesBox .rules-section strong { color: #8a9ab0; }
 body.kniffel #rulesBox ul { color: #333; }
 #rulesBox .rules-close { margin-top: 16px; width: 100%; }
 
+/* ══ IMPOSTER THEME ══ */
+body.imposter { background:#180f2e; color:#e8d5ff; }
+body.imposter h1 { color:#c77dff; text-shadow:0 2px 20px rgba(199,125,255,0.35); }
+body.imposter h2 { color:#d8b4fe; }
+body.imposter .card { background:#271745; border-color:#3d2060; }
+body.imposter .subtitle { color:#9d76c4; }
+body.imposter .btn-primary { background:linear-gradient(135deg,#9d4edd,#6a1fa6); color:#fff; box-shadow:0 4px 16px rgba(157,78,221,0.35); }
+body.imposter .btn-primary:active { background:linear-gradient(135deg,#7b2fc9,#4e1080); }
+body.imposter .btn-secondary { background:#271745; color:#c77dff; border-color:#3d2060; }
+body.imposter .btn-ghost { background:rgba(157,78,221,0.12); color:#c77dff; border:1px solid #3d2060; }
+body.imposter .btn-danger { background:linear-gradient(135deg,#e03c6e,#a01845); color:#fff; }
+body.imposter input { background:#1e1035; border-color:#3d2060; color:#e8d5ff; }
+body.imposter input::placeholder { color:#5a4070; }
+body.imposter #hamburger { background:rgba(157,78,221,0.25); border:1px solid rgba(157,78,221,0.3); }
+body.imposter #hamburger span { background:#c77dff; }
+body.imposter #gameMenuDrawer { background:#1e1035; }
+body.imposter #gameMenuDrawer .gm-title { color:#7a5a9a; }
+body.imposter #gameMenuDrawer .gm-item { color:#d8b4fe; }
+body.imposter #gameMenuDrawer .gm-item:hover { background:rgba(199,125,255,0.08); }
+body.imposter #gameMenuDrawer .gm-item.danger { color:#ff4d6d; }
+body.imposter #gameMenuDrawer .gm-sep { background:rgba(199,125,255,0.12); }
+body.imposter #rulesBox { background:#271745; color:#e8d5ff; }
+body.imposter #rulesBox h3 { color:#c77dff; }
+body.imposter #rulesBox ul { color:#b89fd0; }
+body.imposter #rulesBox .rules-section strong { color:#7a5a9a; }
+
+/* player list imposter */
+body.imposter .player-entry input { background:#1e1035; border-color:#3d2060; color:#e8d5ff; }
+body.imposter .del-btn { background:#2d1040; color:#c77dff; }
+body.imposter .game-btn { letter-spacing:2px; }
+
+/* flip card */
+.icard-scene { width:220px; height:300px; perspective:900px; margin:0 auto 20px; cursor:pointer; }
+.icard-inner { width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+.icard-inner.flipped { transform:rotateY(180deg); }
+.icard-face { position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px; }
+.icard-front { background:linear-gradient(145deg,#2d1b4e,#1a0d36);border:2px solid #5a2d99;box-shadow:0 8px 32px rgba(0,0,0,0.5),inset 0 1px 0 rgba(199,125,255,0.15); }
+.icard-back-word { background:linear-gradient(145deg,#1a3a1a,#0d2010);border:2px solid #3a8a3a; }
+.icard-back-imp  { background:linear-gradient(145deg,#3a0d1a,#1e0510);border:2px solid #c0394e; }
+.icard-back { transform:rotateY(180deg); }
+.icard-q { font-size:4em;margin-bottom:8px;filter:drop-shadow(0 0 12px rgba(199,125,255,0.6)); }
+.icard-hint { font-size:0.75em;color:#7a5a9a;letter-spacing:1px;text-transform:uppercase; }
+.icard-role { font-size:0.7em;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px; }
+.icard-word { font-size:2em;font-weight:900;letter-spacing:1px;text-align:center; }
+.icard-role.role-word { color:#5acf5a; }
+.icard-role.role-imp  { color:#ff4d6d; }
+.icard-word.word-val  { color:#fff; }
+.icard-word.word-imp  { color:#ff4d6d;text-shadow:0 0 20px rgba(255,77,109,0.5); }
+.icard-cat { font-size:0.72em;color:#5a9a5a;margin-top:8px;letter-spacing:1px; }
+.icard-tap { font-size:0.72em;color:#9d76c4;letter-spacing:1px;animation:pulse 1.8s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:0.5;} 50%{opacity:1;} }
+
+/* discuss order */
+.idiscuss-item { display:flex;align-items:center;gap:14px;padding:12px 16px;background:#271745;border-radius:12px;margin-bottom:8px;border:1px solid #3d2060; }
+.idiscuss-num { width:28px;height:28px;border-radius:50%;background:#9d4edd;color:#fff;font-weight:700;font-size:0.85em;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.idiscuss-name { font-size:0.95em;color:#e8d5ff;font-weight:500; }
+
+/* vote list */
+.ivote-item { display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:#271745;border-radius:12px;margin-bottom:8px;border:2px solid transparent;cursor:pointer;transition:all 0.15s; }
+.ivote-item.selected { border-color:#9d4edd;background:#3d1f60; }
+.ivote-item:active { background:#3d1f60; }
+.ivote-name { font-size:1em;color:#e8d5ff;font-weight:500; }
+.ivote-check { font-size:1.2em;opacity:0;transition:opacity 0.15s; }
+.ivote-item.selected .ivote-check { opacity:1; }
+
+/* result */
+.iresult-banner { border-radius:16px;padding:20px;text-align:center;margin-bottom:20px; }
+.iresult-banner.win  { background:rgba(58,138,58,0.2);border:1px solid #3a8a3a; }
+.iresult-banner.lose { background:rgba(192,57,78,0.2);border:1px solid #c0394e; }
+.iresult-emoji { font-size:3em;margin-bottom:6px; }
+.iresult-title { font-size:1.3em;font-weight:700;margin-bottom:4px; }
+.iresult-sub { font-size:0.85em;color:#9d76c4; }
+.iresult-word-box { background:#271745;border:1px solid #3d2060;border-radius:12px;padding:14px;text-align:center;margin-bottom:12px; }
+.iresult-word-lbl { font-size:0.7em;color:#7a5a9a;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px; }
+.iresult-word-val { font-size:1.8em;font-weight:900;color:#c77dff; }
+
+/* guess input */
+.iguess-box { background:#271745;border-radius:14px;padding:18px;margin-bottom:16px;border:1px solid #9d4edd; }
+.iguess-lbl { font-size:0.82em;color:#9d76c4;margin-bottom:10px;text-align:center; }
+
 /* ── UTILS ── */
 .fade-in { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
@@ -525,10 +636,38 @@ body.kniffel #rulesBox ul { color: #333; }
 <!-- ════════════════════ HOME ════════════════════ -->
 <div class="screen active" id="home">
   <div class="spacer"></div>
-  <h1 style="letter-spacing:4px">WÜRFELSPIELE</h1>
-  <p class="subtitle">Wähle dein Spiel</p>
-  <button class="game-btn btn-primary" onclick="showScreen('menu')">🎲 SCHOCKEN</button>
-  <button class="game-btn btn-ghost" onclick="gotoKniffel()">🎯 KNIFFEL</button>
+  <div class="home-title">SPIELE</div>
+  <div class="home-sub">Wähle dein Spiel</div>
+  <button class="game-card schocken" onclick="showScreen('menu')">
+    <div class="game-card-inner">
+      <div class="game-card-icon">🎲</div>
+      <div class="game-card-text">
+        <div class="game-card-name">SCHOCKEN</div>
+        <div class="game-card-desc">Würfelspiel mit Becher · 2–8 Spieler</div>
+      </div>
+      <div class="game-card-arrow">›</div>
+    </div>
+  </button>
+  <button class="game-card kniffel" onclick="gotoKniffel()">
+    <div class="game-card-inner">
+      <div class="game-card-icon">🎯</div>
+      <div class="game-card-text">
+        <div class="game-card-name">KNIFFEL</div>
+        <div class="game-card-desc">Kategorien ausfüllen · mit oder ohne Würfel</div>
+      </div>
+      <div class="game-card-arrow">›</div>
+    </div>
+  </button>
+  <button class="game-card imposter" onclick="gotoImposter()">
+    <div class="game-card-inner">
+      <div class="game-card-icon">🕵️</div>
+      <div class="game-card-text">
+        <div class="game-card-name">IMPOSTER</div>
+        <div class="game-card-desc">Wer kennt das Wort nicht? · 3+ Spieler</div>
+      </div>
+      <div class="game-card-arrow">›</div>
+    </div>
+  </button>
   <div class="spacer"></div>
 </div>
 
@@ -696,6 +835,105 @@ body.kniffel #rulesBox ul { color: #333; }
   <div class="spacer"></div>
 </div>
 
+<!-- ════════════════════ IMPOSTER MENU ════════════════════ -->
+<div class="screen" id="iMenu">
+  <h1>IMPOSTER</h1>
+  <p class="subtitle">Spieler hinzufügen · mind. 3 Spieler</p>
+  <div class="card">
+    <div id="iPlayerList"></div>
+    <button class="btn btn-ghost btn-sm mt8" onclick="iAddField()">+ Spieler hinzufügen</button>
+  </div>
+  <button class="btn btn-primary" id="iStartBtn" onclick="iStartGame()" disabled>Spiel starten</button>
+</div>
+
+<!-- ════════════════════ IMPOSTER REVEAL ════════════════════ -->
+<div class="screen" id="iReveal">
+  <div class="spacer"></div>
+  <p class="subtitle" id="iRevealSub" style="margin-bottom:4px"></p>
+  <h2 id="iRevealName" style="margin-bottom:20px;font-size:1.6em"></h2>
+  <div class="icard-scene" onclick="iFlipCard()">
+    <div class="icard-inner" id="iCardInner">
+      <div class="icard-face icard-front">
+        <div class="icard-q">🃏</div>
+        <div class="icard-tap">Tippen zum Aufdecken</div>
+      </div>
+      <div class="icard-face icard-back" id="iCardBack">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="iRevealNext" style="display:none;max-width:280px" onclick="iRevealNext()">Weiter →</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ IMPOSTER DISCUSS ════════════════════ -->
+<div class="screen" id="iDiscuss">
+  <div class="spacer"></div>
+  <div class="big-emoji">🗣️</div>
+  <h2>Diskussion</h2>
+  <p class="subtitle" style="margin-bottom:18px">Jeder beschreibt das Wort — ohne es direkt zu nennen!</p>
+  <div class="card" style="width:100%;max-width:360px">
+    <div style="font-size:0.7em;color:#7a5a9a;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">Reihenfolge</div>
+    <div id="iDiscussList"></div>
+  </div>
+  <div style="display:flex;gap:10px;width:100%;max-width:360px;margin-top:8px">
+    <button class="btn btn-secondary" style="flex:1" onclick="iAnotherRound()">🔄 Noch eine Runde</button>
+    <button class="btn btn-primary" style="flex:1" onclick="showScreen('iVote')">Abstimmen →</button>
+  </div>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ IMPOSTER VOTE ════════════════════ -->
+<div class="screen" id="iVote">
+  <div class="spacer"></div>
+  <div class="big-emoji">🔍</div>
+  <h2>Wer ist der Imposter?</h2>
+  <p class="subtitle" style="margin-bottom:18px">Wählt gemeinsam eine Person aus</p>
+  <div id="iVoteList" style="width:100%;max-width:360px"></div>
+  <button class="btn btn-primary" id="iVoteConfirm" style="max-width:360px;margin-top:8px" onclick="iConfirmVote()" disabled>Aufdecken →</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ IMPOSTER GUESS ════════════════════ -->
+<div class="screen" id="iGuess">
+  <div class="spacer"></div>
+  <div class="big-emoji">🎯</div>
+  <h2>Letzte Chance!</h2>
+  <p class="subtitle" style="margin-bottom:4px">Der Imposter wurde enttarnt.</p>
+  <p class="subtitle" style="margin-bottom:20px"><span id="iGuessName" style="color:#c77dff"></span> kann das Wort noch raten und trotzdem gewinnen!</p>
+  <div class="iguess-box" style="width:100%;max-width:340px">
+    <div class="iguess-lbl">Was war das geheime Wort?</div>
+    <input type="text" id="iGuessInput" placeholder="Wort eingeben…" style="width:100%;text-align:center" oninput="iGuessCheck()" autocomplete="off">
+  </div>
+  <button class="btn btn-primary" id="iGuessBtn" style="max-width:340px" onclick="iGuessSubmit()" disabled>Raten →</button>
+  <button class="btn btn-ghost" style="max-width:340px;margin-top:8px" onclick="iSkipGuess()">Aufgeben</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ IMPOSTER RESULT ════════════════════ -->
+<div class="screen" id="iResult">
+  <div class="spacer"></div>
+  <div id="iResultBanner" class="iresult-banner">
+    <div class="iresult-emoji" id="iResultEmoji"></div>
+    <div class="iresult-title" id="iResultTitle"></div>
+    <div class="iresult-sub" id="iResultSub"></div>
+  </div>
+  <div class="iresult-word-box" style="max-width:340px;width:100%">
+    <div class="iresult-word-lbl">Das geheime Wort war</div>
+    <div class="iresult-word-val" id="iResultWord"></div>
+    <div style="font-size:0.75em;color:#7a5a9a;margin-top:4px" id="iResultCat"></div>
+  </div>
+  <div class="iresult-word-box" style="max-width:340px;width:100%;margin-top:0">
+    <div class="iresult-word-lbl">Imposter war</div>
+    <div class="iresult-word-val" id="iResultImpName" style="color:#ff4d6d"></div>
+  </div>
+  <div style="display:flex;gap:10px;width:100%;max-width:340px;margin-top:8px">
+    <button class="btn btn-secondary" style="flex:1" onclick="showScreen('home')">Hauptmenü</button>
+    <button class="btn btn-primary" style="flex:1" onclick="iPlayAgain()">Nochmal 🎲</button>
+  </div>
+  <div class="spacer"></div>
+</div>
+
 <script>
 // ══════════════════════════════════════════════
 //  PIP LAYOUTS & DIE RENDERING
@@ -847,13 +1085,16 @@ function beginTurn() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const kniffelScreens = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
-  document.body.classList.toggle('kniffel', kniffelScreens.includes(id));
-  const menuScreens = ['handoff','game','reveal','phaseEnd','gameOver','kHandoff','kGame','kScore','kShared','kEnd'];
-  const hb = document.getElementById('hamburger');
-  hb.classList.toggle('visible', menuScreens.includes(id));
-  const isKniffel = kniffelScreens.includes(id);
-  document.getElementById('gmGameLabel').textContent = isKniffel ? 'Kniffel' : 'Schocken';
+  const kniffelScreens   = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
+  const imposterScreens  = ['iMenu','iReveal','iDiscuss','iVote','iGuess','iResult'];
+  const isKniffel  = kniffelScreens.includes(id);
+  const isImposter = imposterScreens.includes(id);
+  document.body.classList.toggle('kniffel',  isKniffel);
+  document.body.classList.toggle('imposter', isImposter);
+  const menuScreens = ['handoff','game','reveal','phaseEnd','gameOver','kHandoff','kGame','kScore','kShared','kEnd','iReveal','iDiscuss','iVote','iGuess','iResult'];
+  document.getElementById('hamburger').classList.toggle('visible', menuScreens.includes(id));
+  document.getElementById('gmGameLabel').textContent = isKniffel ? 'Kniffel' : isImposter ? 'Imposter' : 'Schocken';
+  if (id === 'iVote') showScreen_iVote();
 }
 
 // ── GAME MENU ──
@@ -866,19 +1107,55 @@ function closeGameMenu(e) {
 }
 function gmGoHome() {
   closeGameMenu();
-  if (!confirm('Zurück ins Hauptmenü? Der aktuelle Spielstand geht verloren.')) return;
-  showScreen('home');
+  gmConfirm('Zurück ins Hauptmenü?', 'Der Spielstand geht verloren.', ()=>showScreen('home'));
 }
 function gmRestart() {
   closeGameMenu();
-  const isKniffel = document.body.classList.contains('kniffel');
-  if (!confirm('Spiel neu starten? Der aktuelle Spielstand geht verloren.')) return;
-  if (isKniffel) showScreen('kMenu');
-  else showScreen('menu');
+  const isKniffel  = document.body.classList.contains('kniffel');
+  const isImposter = document.body.classList.contains('imposter');
+  gmConfirm('Spiel neu starten?', 'Der Spielstand geht verloren.', ()=>{
+    if (isKniffel)       showScreen('kMenu');
+    else if (isImposter) gotoImposter();
+    else                 showScreen('menu');
+  });
+}
+function gmConfirm(title, sub, onYes) {
+  const el = document.createElement('div');
+  el.className = 'tf-overlay'; el.style.zIndex = '1100';
+  el.innerHTML = `
+    <div style="font-size:1.05em;font-weight:700;margin-bottom:6px">${title}</div>
+    <div style="font-size:0.85em;color:#888;margin-bottom:20px">${sub}</div>
+    <div style="display:flex;gap:10px;width:100%;max-width:260px">
+      <button class="btn btn-danger btn-sm" style="flex:1" id="gmConfirmYes">Ja</button>
+      <button class="btn btn-secondary btn-sm" style="flex:1" onclick="this.closest('.tf-overlay').remove()">Abbrechen</button>
+    </div>`;
+  document.body.appendChild(el);
+  el.querySelector('#gmConfirmYes').onclick = ()=>{ el.remove(); onYes(); };
 }
 function gmRules() {
   closeGameMenu();
-  const isKniffel = document.body.classList.contains('kniffel');
+  const isKniffel  = document.body.classList.contains('kniffel');
+  const isImposter = document.body.classList.contains('imposter');
+  if (isImposter) {
+    document.getElementById('rulesTitle').textContent = 'Imposter – Regeln';
+    document.getElementById('rulesContent').innerHTML = `
+      <div class="rules-section"><strong>Ziel</strong><ul>
+        <li>Das Team versucht den Imposter zu entlarven</li>
+        <li>Der Imposter versucht unerkannt zu bleiben — oder das Wort zu erraten</li>
+      </ul></div>
+      <div class="rules-section"><strong>Ablauf</strong><ul>
+        <li>Jeder Spieler sieht verdeckt seine Karte (Wort oder IMPOSTER!)</li>
+        <li>Alle beschreiben das Wort reihum — ohne es direkt zu nennen</li>
+        <li>Der Imposter muss so tun als würde er es kennen</li>
+      </ul></div>
+      <div class="rules-section"><strong>Abstimmung</strong><ul>
+        <li>Nach der Diskussion wird gemeinsam abgestimmt</li>
+        <li>Wird der Imposter entlarvt, kann er das Wort noch raten</li>
+        <li>Rät er es richtig, gewinnt trotzdem der Imposter!</li>
+      </ul></div>`;
+    document.getElementById('rulesOverlay').classList.add('open');
+    return;
+  }
   document.getElementById('rulesTitle').textContent = isKniffel ? 'Kniffel – Regeln' : 'Schocken – Regeln';
   document.getElementById('rulesContent').innerHTML = isKniffel ? `
     <div class="rules-section"><strong>Ziel</strong><ul>
@@ -2194,6 +2471,235 @@ function showKEnd() {
   });
   document.getElementById('kEndList').innerHTML = html;
   showScreen('kEnd');
+}
+
+// ══════════════════════════════════════════════
+//  IMPOSTER GAME
+// ══════════════════════════════════════════════
+
+const I_WORDS = {
+  'Tiere':    ['Elefant','Pinguin','Delfin','Koala','Flamingo','Axolotl','Otter','Faultier','Papagei','Gepard','Känguru','Qualle','Chamäleon','Erdmännchen','Nashorn','Schnabeltier','Tapir','Gürteltier','Leguan','Albatros'],
+  'Essen':    ['Pizza','Sushi','Avocado','Croissant','Ramen','Burger','Fondue','Tiramisu','Pommes','Schnitzel','Brezel','Churros','Guacamole','Hummus','Paella','Baklava','Lasagne','Waffel','Donut','Käsekuchen'],
+  'Sport':    ['Surfen','Klettern','Fechten','Bogenschießen','Curling','Tischtennis','Skateboard','Yoga','Boxen','Synchronschwimmen','Fallschirmspringen','Rudern','Eishockey','Handball','Badminton','Volleyball','Turnen','Reiten','Karate','Schwimmen'],
+  'Orte':     ['Strand','Dschungel','Vulkan','Höhle','Leuchtturm','Baumhaus','Iglu','Wüste','Wasserfall','Korallenriff','Polargebiet','Savanne','Sumpf','Canyon','Gletscher','Tundra','Moor','Fjord','Insel','Marktplatz'],
+  'Dinge':    ['Trampolin','Teleskop','Gitarre','Zauberstab','Kompass','Heißluftballon','Regenschirm','Laterne','Fernrohr','Schlüssel','Spiegel','Uhr','Kerze','Windmühle','Thermosflasche','Lupe','Schachfigur','Globus','Fernbedienung','Taschenlampe'],
+  'Berufe':   ['Pirat','Astronaut','Zauberer','Detektiv','Friseur','Clown','Feuerwehrmann','Ninja','Wikinger','Dirigent','Schauspieler','Bäcker','Taucher','Bergsteiger','Archäologe','Puppenspieler','Gondoliere','Trapezkünstler','Zirkusdirektor','Leuchtturmwärter'],
+  'Natur':    ['Regenbogen','Blitz','Ebbe','Lawine','Tsunami','Nordlicht','Tornado','Geysir','Sonnenfinsternis','Monsun','Nebel','Hagel','Vulkanausbruch','Sandsturm','Eisregen'],
+  'Fantasie': ['Drache','Einhorn','Meerjungfrau','Phönix','Zentaur','Minotaurus','Kobold','Nixe','Greif','Hydra','Golem','Werwolf','Vampir','Troll','Riese'],
+};
+
+let IG = {};
+
+function gotoImposter() {
+  IG = {};
+  iInitMenu();
+  showScreen('iMenu');
+}
+
+function iInitMenu() {
+  const list = document.getElementById('iPlayerList');
+  list.innerHTML = '';
+  iAddField(''); iAddField(''); iAddField('');
+}
+
+function iAddField(val='') {
+  const list = document.getElementById('iPlayerList');
+  const idx = list.children.length;
+  const div = document.createElement('div');
+  div.className = 'player-entry fade-in';
+  div.innerHTML = `<input class="input" type="text" placeholder="Spieler ${idx+1}" value="${val}" oninput="iCheckStart()">
+    <button class="del-btn" onclick="iRemoveField(this)">✕</button>`;
+  list.appendChild(div);
+  iCheckStart();
+}
+
+function iRemoveField(btn) {
+  btn.closest('.player-entry').remove();
+  document.querySelectorAll('#iPlayerList .player-entry').forEach((el,i)=>{
+    el.querySelector('input').placeholder = 'Spieler '+(i+1);
+  });
+  iCheckStart();
+}
+
+function iCheckStart() {
+  const names = [...document.querySelectorAll('#iPlayerList input')].map(i=>i.value.trim()).filter(Boolean);
+  document.getElementById('iStartBtn').disabled = names.length < 3;
+}
+
+function iStartGame() {
+  const names = [...document.querySelectorAll('#iPlayerList input')].map(i=>i.value.trim()).filter(Boolean);
+  if (names.length < 3) return;
+
+  // Pick random word & category
+  const cats = Object.keys(I_WORDS);
+  const cat = cats[Math.floor(Math.random()*cats.length)];
+  const words = I_WORDS[cat];
+  const word = words[Math.floor(Math.random()*words.length)];
+
+  // Assign imposter randomly
+  const impIdx = Math.floor(Math.random()*names.length);
+
+  // Shuffle reveal order
+  const revealOrder = [...Array(names.length).keys()].sort(()=>Math.random()-0.5);
+
+  IG = { players: names, word, cat, impIdx, revealOrder, revealPos: 0, voted: null };
+  iShowReveal();
+}
+
+function iShowReveal() {
+  const { players, revealOrder, revealPos } = IG;
+  const pi = revealOrder[revealPos];
+  const total = players.length;
+
+  document.getElementById('iRevealSub').textContent = `Karte ${revealPos+1} von ${total}`;
+  document.getElementById('iRevealName').textContent = players[pi];
+
+  // Reset card instantly (no animation) then re-enable transition
+  const inner = document.getElementById('iCardInner');
+  inner.style.transition = 'none';
+  inner.classList.remove('flipped');
+  inner.offsetHeight; // force reflow
+  requestAnimationFrame(() => { inner.style.transition = ''; });
+  document.getElementById('iRevealNext').style.display = 'none';
+
+  // Prepare back face
+  const isImp = pi === IG.impIdx;
+  const back = document.getElementById('iCardBack');
+  if (isImp) {
+    back.className = 'icard-face icard-back icard-back-imp';
+    back.innerHTML = `
+      <div class="icard-role role-imp">Du bist der</div>
+      <div class="icard-word word-imp">IMPOSTER!</div>
+      <div style="font-size:0.75em;color:#c0394e;margin-top:12px;text-align:center">Finde das Wort heraus<br>ohne aufzufallen</div>`;
+  } else {
+    back.className = 'icard-face icard-back icard-back-word';
+    back.innerHTML = `
+      <div class="icard-role role-word">Das geheime Wort</div>
+      <div class="icard-word word-val">${IG.word}</div>
+      <div class="icard-cat">${IG.cat}</div>`;
+  }
+
+  showScreen('iReveal');
+}
+
+function iFlipCard() {
+  const inner = document.getElementById('iCardInner');
+  if (inner.classList.contains('flipped')) return;
+  inner.classList.add('flipped');
+  setTimeout(()=>{ document.getElementById('iRevealNext').style.display=''; }, 400);
+}
+
+function iRevealNext() {
+  IG.revealPos++;
+  if (IG.revealPos < IG.players.length) {
+    iShowReveal();
+  } else {
+    iShowDiscuss();
+  }
+}
+
+function iShowDiscuss() {
+  // Random discussion order (re-shuffle)
+  const order = [...Array(IG.players.length).keys()].sort(()=>Math.random()-0.5);
+  IG.discussOrder = order;
+  const html = order.map((pi,i)=>`
+    <div class="idiscuss-item">
+      <div class="idiscuss-num">${i+1}</div>
+      <div class="idiscuss-name">${IG.players[pi]}</div>
+    </div>`).join('');
+  document.getElementById('iDiscussList').innerHTML = html;
+  showScreen('iDiscuss');
+}
+
+function iAnotherRound() {
+  // Re-shuffle discussion order
+  iShowDiscuss();
+}
+
+// ── VOTING ──
+function showScreen_iVote() {
+  const html = IG.players.map((name,pi)=>`
+    <div class="ivote-item" id="ivote-${pi}" onclick="iSelectVote(${pi})">
+      <span class="ivote-name">${name}</span>
+      <span class="ivote-check">✓</span>
+    </div>`).join('');
+  document.getElementById('iVoteList').innerHTML = html;
+  IG.voted = null;
+  document.getElementById('iVoteConfirm').disabled = true;
+}
+
+function iSelectVote(pi) {
+  IG.voted = pi;
+  document.querySelectorAll('.ivote-item').forEach((el,i)=>el.classList.toggle('selected', i===pi));
+  document.getElementById('iVoteConfirm').disabled = false;
+}
+
+function iConfirmVote() {
+  if (IG.voted === null) return;
+  const votedIsImp = IG.voted === IG.impIdx;
+  if (votedIsImp) {
+    // Imposter found — give them a chance to guess
+    document.getElementById('iGuessName').textContent = IG.players[IG.impIdx];
+    document.getElementById('iGuessInput').value = '';
+    document.getElementById('iGuessBtn').disabled = true;
+    showScreen('iGuess');
+  } else {
+    // Wrong — Imposter wins
+    iShowResult('imp_safe');
+  }
+}
+
+function iGuessCheck() {
+  document.getElementById('iGuessBtn').disabled = document.getElementById('iGuessInput').value.trim().length < 1;
+}
+
+function iGuessSubmit() {
+  const guess = document.getElementById('iGuessInput').value.trim().toLowerCase();
+  const correct = IG.word.toLowerCase();
+  if (guess === correct) {
+    iShowResult('imp_guess_win');
+  } else {
+    iShowResult('imp_guess_lose');
+  }
+}
+
+function iSkipGuess() {
+  iShowResult('team_win');
+}
+
+function iShowResult(outcome) {
+  const impName = IG.players[IG.impIdx];
+  let emoji, title, sub, bannerClass;
+  if (outcome === 'team_win') {
+    emoji='🎉'; title='Team gewinnt!'; sub=`${impName} wurde enttarnt und hat aufgegeben.`; bannerClass='win';
+  } else if (outcome === 'imp_safe') {
+    emoji='🕵️'; title='Imposter entkommen!'; sub=`${impName} wurde nicht entdeckt.`; bannerClass='lose';
+  } else if (outcome === 'imp_guess_win') {
+    emoji='😱'; title='Imposter gewinnt!'; sub=`${impName} hat das Wort erraten!`; bannerClass='lose';
+  } else {
+    emoji='🎉'; title='Team gewinnt!'; sub=`${impName} hat das Wort nicht erraten.`; bannerClass='win';
+  }
+  const banner = document.getElementById('iResultBanner');
+  banner.className = `iresult-banner ${bannerClass}`;
+  document.getElementById('iResultEmoji').textContent = emoji;
+  document.getElementById('iResultTitle').textContent = title;
+  document.getElementById('iResultSub').textContent = sub;
+  document.getElementById('iResultWord').textContent = IG.word;
+  document.getElementById('iResultCat').textContent = IG.cat;
+  document.getElementById('iResultImpName').textContent = impName;
+  showScreen('iResult');
+}
+
+function iPlayAgain() {
+  const prevPlayers = IG.players ? [...IG.players] : [];
+  IG = {};
+  iInitMenu();
+  if (prevPlayers.length) {
+    const list = document.getElementById('iPlayerList');
+    list.innerHTML = '';
+    prevPlayers.forEach(n=>iAddField(n));
+  }
+  showScreen('iMenu');
 }
 
 // ── INIT MENU ──
