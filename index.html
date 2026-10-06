@@ -272,7 +272,7 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 }
 .ks-row:active { background: #253a25; }
 .ks-row.ks-filled { opacity: 0.45; cursor: default; pointer-events: none; }
-.ks-row.ks-crossed { opacity: 0.3; cursor: default; pointer-events: none; text-decoration: line-through; }
+.ks-row.ks-crossed { opacity: 0.6; cursor: pointer; text-decoration: line-through; }
 .ks-row.ks-bonus  { cursor: default; background: #131f13; }
 .ks-label { flex: 1; font-size: 0.95em; }
 .ks-suggest { font-size: 0.88em; color: #5a9a5a; font-weight: 600; }
@@ -334,6 +334,89 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 .ksg-total-name { font-size: 0.7em; color: #666; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ksg-total-pts { font-size: 1.15em; font-weight: bold; color: var(--gold); }
 .ksg-total-sub { font-size: 0.65em; color: #555; margin-top: 1px; }
+
+/* ── KSTAT BOXES (suggestions totals) ── */
+.kstats-row { display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap; }
+.kstat-box { flex:1;min-width:76px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a; }
+.kstat-lbl { font-size:0.68em;color:#666;text-transform:uppercase;letter-spacing:1px; }
+.kstat-val { font-size:1.3em;font-weight:bold;color:var(--gold); }
+.kstat-val.done { color:#5a9a5a; }
+.kstat-of { font-size:0.52em;color:#555; }
+.kstat-sub { font-size:0.66em;color:#555;margin-top:1px; }
+.kmod-name { color:var(--gold);font-size:1.05em;font-weight:bold;margin-bottom:3px; }
+.kmod-sub  { color:#aaa;font-size:0.88em;margin-bottom:14px; }
+.kmod-val  { font-size:1.5em;font-weight:bold;color:var(--cream);margin-bottom:16px; }
+
+/* ══════════════════════════════════════════════
+   KNIFFEL LIGHT / BLUE THEME
+   ══════════════════════════════════════════════ */
+body.kniffel { background:#dce8f5; color:#0d1e3a; }
+body.kniffel h1 { color:#1a56a0; text-shadow:0 2px 14px rgba(26,86,160,0.2); }
+body.kniffel h2 { color:#1a56a0; }
+body.kniffel h3 { color:#5a7090; }
+body.kniffel .subtitle { color:#8a9ab0; }
+body.kniffel .card { background:#fff; border-color:#c0d0e8; }
+body.kniffel .input { background:#f4f8ff; border-color:#b0c4de; color:#0d1e3a; }
+body.kniffel .input:focus { border-color:#1a56a0; }
+body.kniffel .del-btn { background:#fce8e8; color:#c62828; }
+body.kniffel .btn-primary { background:linear-gradient(135deg,#2e6cc7,#1a4a90); color:#fff; box-shadow:0 4px 14px rgba(26,86,160,0.28); }
+body.kniffel .btn-secondary { background:#dce8f5; color:#1a56a0; border-color:#b0c4de; }
+body.kniffel .btn-ghost { color:#1a56a0; border-color:#1a56a0; }
+body.kniffel .btn-mode-active { background:linear-gradient(135deg,#2e6cc7,#1a4a90) !important; color:#fff !important; }
+body.kniffel .btn-danger { background:linear-gradient(135deg,#e53935,#b71c1c); }
+body.kniffel .phase-badge { background:#e8f0fc; color:#1a56a0; border-color:#b0c4de; }
+body.kniffel .handoff-name { color:#1a56a0; }
+body.kniffel .handoff-sub  { color:#8a9ab0; }
+/* scoresheet header */
+body.kniffel .ks-header { background:#e8f0fc; border-color:#b0c4de; }
+body.kniffel .ks-total  { color:#1a56a0; }
+body.kniffel .ks-bonus-info { color:#5a7090; }
+body.kniffel .ks-section-title { color:#8a9ab0; }
+body.kniffel .ks-row { background:#f4f8ff; border:1px solid transparent; }
+body.kniffel .ks-row:not(.ks-filled):not(.ks-crossed):not(.ks-bonus):active { background:#e8f0fc; border-color:#b0c4de; }
+body.kniffel .ks-label { color:#0d1e3a; }
+body.kniffel .ks-score { color:#1a56a0; }
+body.kniffel .ks-suggest { color:#2e7d32; }
+body.kniffel .ks-suggest.zero { color:#b0b8c8; }
+body.kniffel .ks-row.ks-bonus { background:#f0f8f0; cursor:default; }
+body.kniffel .ks-row.ks-filled { background:#f4f8ff; }
+body.kniffel .ks-row.ks-crossed { background:#fff5f5; border:1px solid #ffcdd2 !important; }
+body.kniffel .ks-expand { background:#eaf1fc; border-color:#b0c4de; }
+body.kniffel .ks-expand-label { color:#5a7090; }
+body.kniffel .ks-expand-pts { color:#1a56a0; }
+body.kniffel .ks-count-btn { background:#dce8f5; color:#1a56a0; }
+body.kniffel .ks-count-val { color:#1a56a0; }
+body.kniffel .ks-sum-input { background:#fff; border-color:#b0c4de; color:#0d1e3a; }
+/* shared grid */
+body.kniffel .ksg-label { background:#eef3fb; color:#0d1e3a; }
+body.kniffel .ksg-head  { color:#1a56a0; }
+body.kniffel .ksg-section { color:#8a9ab0; }
+body.kniffel .ksg-cell  { background:#f4f8ff; }
+body.kniffel .ksg-cell.empty  { color:#c0d0e8; background:#f4f8ff; }
+body.kniffel .ksg-cell.filled { color:#1a56a0; font-weight:700; background:#fff; border:1px solid #dce8f5; cursor:pointer; }
+body.kniffel .ksg-cell.crossed {
+  background:#fff0f0; color:#d32f2f; font-size:1em; font-weight:normal;
+  border:1px solid #ffb3b3 !important; cursor:pointer;
+}
+body.kniffel .ksg-bonus-cell { background:#f0f8f0; color:#2e7d32; }
+body.kniffel .ksg-total-cell { background:#fff; border-color:#b0c4de; }
+body.kniffel .ksg-total-name { color:#8a9ab0; }
+body.kniffel .ksg-total-pts  { color:#1a56a0; }
+body.kniffel .ksg-total-sub  { color:#8a9ab0; }
+/* stat boxes in game screen */
+body.kniffel .kstat-box { background:#fff; border-color:#b0c4de; }
+body.kniffel .kstat-lbl { color:#8a9ab0; }
+body.kniffel .kstat-val { color:#1a56a0; }
+body.kniffel .kstat-val.done { color:#2e7d32; }
+body.kniffel .kstat-sub { color:#8a9ab0; }
+/* modal overlay */
+body.kniffel .tf-overlay { background:rgba(220,234,248,0.97); }
+body.kniffel .kmod-name { color:#1a56a0; }
+body.kniffel .kmod-sub  { color:#5a7090; }
+body.kniffel .kmod-val  { color:#0d1e3a; }
+body.kniffel .kmod-undo { font-size:0.82em;color:#8a9ab0;margin-bottom:4px; }
+/* end screen */
+body.kniffel .standing-row { background:#f4f8ff; border:1px solid #dce8f5; color:#0d1e3a; }
 
 /* ── UTILS ── */
 .fade-in { animation: fadeIn 0.3s ease; }
@@ -673,6 +756,8 @@ function beginTurn() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  const kniffelScreens = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
+  document.body.classList.toggle('kniffel', kniffelScreens.includes(id));
 }
 
 function showHandoff() {
@@ -1382,15 +1467,33 @@ function ksgCell(pi, catId, val) {
   if (val === null)
     return `<div class="ksg-cell empty" onclick="kSharedTap(${pi},'${catId}')">+</div>`;
   if (val === -1)
-    return `<div class="ksg-cell crossed">–</div>`;
-  return `<div class="ksg-cell filled">${val}</div>`;
+    return `<div class="ksg-cell crossed" onclick="kSharedTap(${pi},'${catId}')">—</div>`;
+  return `<div class="ksg-cell filled" onclick="kSharedTap(${pi},'${catId}')">${val}</div>`;
 }
 
 function kSharedTap(pi, catId) {
   const cat = K_CATS.find(c=>c.id===catId);
   const p = KG.players[pi];
-  kSharedCountTemp = 0;
+  const existing = p.scores[catId];
 
+  // Undo mode: cell already filled
+  if (existing !== null) {
+    const displayVal = existing === -1 ? 'Gestrichen' : `${existing} Punkte`;
+    const el = document.createElement('div');
+    el.className = 'tf-overlay'; el.style.zIndex = '700';
+    el.innerHTML = `
+      <div class="kmod-undo">Eingetragen</div>
+      <div class="kmod-name">${p.name} – ${cat.label}</div>
+      <div class="kmod-val">${displayVal}</div>
+      <div style="display:flex;gap:10px;width:100%;max-width:280px">
+        <button class="btn btn-danger btn-sm" style="flex:1" onclick="kSharedConfirm(${pi},'${catId}',null)">↩ Rückgängig</button>
+        <button class="btn btn-secondary btn-sm" style="flex:1" onclick="document.querySelector('.tf-overlay').remove()">Abbrechen</button>
+      </div>`;
+    document.body.appendChild(el);
+    return;
+  }
+
+  kSharedCountTemp = 0;
   const el = document.createElement('div');
   el.className = 'tf-overlay';
   el.style.zIndex = '700';
@@ -1427,8 +1530,8 @@ function kSharedTap(pi, catId) {
   }
 
   el.innerHTML = `
-    <div style="color:var(--gold);font-size:1.05em;font-weight:bold;margin-bottom:4px">${p.name}</div>
-    <div style="color:#aaa;font-size:0.9em;margin-bottom:16px">${cat.label}</div>
+    <div class="kmod-name">${p.name}</div>
+    <div class="kmod-sub">${cat.label}</div>
     ${inputHTML}
     <button class="btn btn-secondary btn-sm" style="margin-top:14px;max-width:200px" onclick="document.querySelector('.tf-overlay').remove()">Abbrechen</button>`;
   document.body.appendChild(el);
@@ -1573,19 +1676,19 @@ function renderKSuggestions() {
   const toBonus = Math.max(0, 63 - upperSum);
 
   // Header with totals
-  let html = `<div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
-    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
-      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Gesamt</div>
-      <div style="font-size:1.3em;font-weight:bold;color:var(--gold)">${total}</div>
+  let html = `<div class="kstats-row">
+    <div class="kstat-box">
+      <div class="kstat-lbl">Gesamt</div>
+      <div class="kstat-val">${total}</div>
     </div>
-    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
-      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Oben</div>
-      <div style="font-size:1.3em;font-weight:bold;color:${upperSum>=63?'#5a9a5a':'var(--cream)'}">${upperSum}<span style="font-size:0.55em;color:#555">/63</span></div>
-      <div style="font-size:0.68em;color:#555;margin-top:1px">${upperSum>=63?'✅ Bonus':'noch '+toBonus}</div>
+    <div class="kstat-box">
+      <div class="kstat-lbl">Oben</div>
+      <div class="kstat-val ${upperSum>=63?'done':''}">${upperSum}<span class="kstat-of">/63</span></div>
+      <div class="kstat-sub">${upperSum>=63?'✅ Bonus':'noch '+toBonus}</div>
     </div>
-    <div style="flex:1;min-width:80px;background:#0d1a0d;border-radius:10px;padding:8px 10px;text-align:center;border:1px solid #2a4a2a">
-      <div style="font-size:0.7em;color:#666;text-transform:uppercase;letter-spacing:1px">Unten</div>
-      <div style="font-size:1.3em;font-weight:bold;color:var(--cream)">${lowerSum}</div>
+    <div class="kstat-box">
+      <div class="kstat-lbl">Unten</div>
+      <div class="kstat-val">${lowerSum}</div>
     </div>
   </div>`;
 
@@ -1713,9 +1816,9 @@ function kRenderRow(catId, p, dice, didRoll) {
 
   if (val !== null) {
     const crossed = val === -1;
-    return `<div class="ks-row ${crossed?'ks-crossed':'ks-filled'}">
+    return `<div class="ks-row ${crossed?'ks-crossed':'ks-filled'}" onclick="kUndoFromScore('${catId}')">
       <span class="ks-label">${cat.label}</span>
-      <span class="ks-score">${crossed ? '–' : val}</span>
+      <span class="ks-score">${crossed ? '—' : val}</span>
     </div>`;
   }
 
@@ -1788,6 +1891,30 @@ function kRenderExpanded(cat, dice, didRoll) {
       <button class="btn btn-danger btn-sm" style="flex:1" onclick="kCrossOut('${cat.id}')">✕ Streichen</button>
     </div>
   </div>`;
+}
+
+function kUndoFromScore(catId) {
+  const p = KG.players[KG.currentPlayer];
+  const cat = K_CATS.find(c=>c.id===catId);
+  const existing = p.scores[catId];
+  const displayVal = existing === -1 ? 'Gestrichen' : `${existing} Punkte`;
+  const el = document.createElement('div');
+  el.className = 'tf-overlay'; el.style.zIndex = '700';
+  el.innerHTML = `
+    <div class="kmod-undo">Eingetragen</div>
+    <div class="kmod-name">${p.name} – ${cat.label}</div>
+    <div class="kmod-val">${displayVal}</div>
+    <div style="display:flex;gap:10px;width:100%;max-width:280px">
+      <button class="btn btn-danger btn-sm" style="flex:1" onclick="kUndoConfirm('${catId}')">↩ Rückgängig</button>
+      <button class="btn btn-secondary btn-sm" style="flex:1" onclick="document.querySelector('.tf-overlay').remove()">Abbrechen</button>
+    </div>`;
+  document.body.appendChild(el);
+}
+
+function kUndoConfirm(catId) {
+  document.querySelector('.tf-overlay')?.remove();
+  KG.players[KG.currentPlayer].scores[catId] = null;
+  renderKScoreSheet();
 }
 
 function kSelectCat(catId) {
