@@ -276,6 +276,8 @@ h3 { font-size: 1em; color: #aaa; letter-spacing: 1px; text-transform: uppercase
 .game-card.kniffel  .game-card-desc { color: #7aafd4; }
 .game-card.imposter { background: linear-gradient(135deg, #2d1b4e, #1a0d36); border: 1px solid #5a2d99; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
 .game-card.imposter .game-card-desc { color: #b08ad4; }
+.game-card.werwolf-card { background: linear-gradient(135deg, #1e0e0e, #0c0408); border: 1px solid #5a1a1a; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.game-card.werwolf-card .game-card-desc { color: #b08060; }
 
 /* keep old game-btn for any remaining usage */
 .game-btn {
@@ -597,6 +599,120 @@ body.imposter .game-btn { letter-spacing:2px; }
 .iguess-box { background:#271745;border-radius:14px;padding:18px;margin-bottom:16px;border:1px solid #9d4edd; }
 .iguess-lbl { font-size:0.82em;color:#9d76c4;margin-bottom:10px;text-align:center; }
 
+/* ══ WERWOLF THEME ══ */
+body.werwolf { background:#0c0e18; color:#ccc8e0; }
+body.werwolf h1 { color:#e8c040; text-shadow:0 2px 20px rgba(232,192,64,0.3); }
+body.werwolf h2 { color:#d4b830; }
+body.werwolf .card { background:#141627; border-color:#2a2d45; }
+body.werwolf .subtitle { color:#6a6888; }
+body.werwolf .btn-primary { background:linear-gradient(135deg,#8b1a1a,#5a0f0f); color:#f0d080; box-shadow:0 4px 16px rgba(139,26,26,0.4); }
+body.werwolf .btn-primary:active { background:#6a1010; }
+body.werwolf .btn-secondary { background:#141627; color:#c8b840; border-color:#2a2d45; }
+body.werwolf .btn-ghost { background:rgba(232,192,64,0.08); color:#c8b840; border:1px solid #2a2d45; }
+body.werwolf .btn-danger { background:linear-gradient(135deg,#8b1a1a,#5a0f0f); color:#f0d080; }
+body.werwolf input { background:#0c0e18; border-color:#2a2d45; color:#ccc8e0; }
+body.werwolf input::placeholder { color:#3a3858; }
+body.werwolf #hamburger { background:rgba(232,192,64,0.15); border:1px solid rgba(232,192,64,0.2); }
+body.werwolf #hamburger span { background:#e8c040; }
+body.werwolf #gameMenuDrawer { background:#0f1020; }
+body.werwolf #gameMenuDrawer .gm-title { color:#4a4860; }
+body.werwolf #gameMenuDrawer .gm-item { color:#ccc8e0; }
+body.werwolf #gameMenuDrawer .gm-item:hover { background:rgba(232,192,64,0.06); }
+body.werwolf #gameMenuDrawer .gm-item.danger { color:#bf3030; }
+body.werwolf #gameMenuDrawer .gm-sep { background:rgba(232,192,64,0.1); }
+body.werwolf #rulesBox { background:#141627; color:#ccc8e0; }
+body.werwolf #rulesBox h3 { color:#e8c040; }
+body.werwolf #rulesBox ul { color:#9a96b8; }
+body.werwolf #rulesBox .rules-section strong { color:#4a4860; }
+body.werwolf .del-btn { background:#1e1a2e; color:#e8c040; }
+body.werwolf .player-entry input { background:#0c0e18; border-color:#2a2d45; color:#ccc8e0; }
+
+/* narrator badge */
+.wnarrator-badge { background:rgba(232,192,64,0.12);border:1px solid rgba(232,192,64,0.3);border-radius:10px;padding:8px 14px;font-size:0.82em;color:#e8c040;text-align:center;margin-bottom:4px; }
+
+/* role setup */
+.wrole-item { display:flex;align-items:center;gap:12px;padding:12px 14px;background:#141627;border-radius:12px;margin-bottom:8px;border:1px solid #2a2d45; }
+.wrole-emoji { font-size:1.6em;flex-shrink:0;width:32px;text-align:center; }
+.wrole-info { flex:1; }
+.wrole-name { font-size:0.95em;font-weight:700;color:#ccc8e0; }
+.wrole-desc { font-size:0.75em;color:#6a6888;margin-top:2px; }
+.wrole-stepper { display:flex;align-items:center;gap:8px;flex-shrink:0; }
+.wrole-stepper button { width:28px;height:28px;border-radius:8px;border:1px solid #2a2d45;background:#0c0e18;color:#e8c040;font-size:1.1em;cursor:pointer;display:flex;align-items:center;justify-content:center; }
+.wrole-count { width:24px;text-align:center;font-weight:700;color:#e8c040;font-size:1em; }
+.wrole-total { text-align:center;font-size:0.82em;padding:8px;border-radius:8px;margin-top:4px; }
+.wrole-total.ok { color:#5acf5a;background:rgba(90,207,90,0.08); }
+.wrole-total.over { color:#e8c040;background:rgba(232,192,64,0.08); }
+.wrole-total.under { color:#bf3030;background:rgba(191,48,48,0.08); }
+
+/* narrator selector */
+.wnarr-item { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#141627;border-radius:12px;margin-bottom:8px;border:2px solid transparent;cursor:pointer;transition:border-color 0.15s; }
+.wnarr-item.selected { border-color:#e8c040; }
+.wnarr-name { font-size:0.95em;color:#ccc8e0;font-weight:500; }
+.wnarr-check { opacity:0;transition:opacity 0.15s;color:#e8c040; }
+.wnarr-item.selected .wnarr-check { opacity:1; }
+
+/* role flip card */
+.wcard-scene { width:220px;height:300px;perspective:900px;margin:0 auto 20px;cursor:pointer; }
+.wcard-inner { width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1); }
+.wcard-inner.flipped { transform:rotateY(180deg); }
+.wcard-face { position:absolute;inset:0;backface-visibility:hidden;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px; }
+.wcard-front { background:linear-gradient(145deg,#141627,#0c0e18);border:2px solid #2a2d45;box-shadow:0 8px 32px rgba(0,0,0,0.6),inset 0 1px 0 rgba(232,192,64,0.1); }
+.wcard-back { transform:rotateY(180deg); }
+.wcard-back.wolf { background:linear-gradient(145deg,#1e0a0a,#300808);border:2px solid #7a1a1a; }
+.wcard-back.good { background:linear-gradient(145deg,#0d1a10,#081408);border:2px solid #2a5a2a; }
+.wcard-q { font-size:3.5em;margin-bottom:8px;filter:drop-shadow(0 0 10px rgba(232,192,64,0.5)); }
+.wcard-tap { font-size:0.72em;color:#3a3858;letter-spacing:1px;animation:pulse 1.8s ease-in-out infinite; }
+.wcard-role-emoji { font-size:3em;margin-bottom:8px; }
+.wcard-role-name { font-size:1.4em;font-weight:900;margin-bottom:6px;text-align:center; }
+.wcard-role-desc { font-size:0.75em;text-align:center;line-height:1.5;opacity:0.8;margin-bottom:10px; }
+.wcard-allies { font-size:0.72em;background:rgba(0,0,0,0.3);border-radius:8px;padding:6px 10px;text-align:center;margin-top:4px; }
+.wcard-back.wolf .wcard-role-name { color:#ff6060; }
+.wcard-back.good .wcard-role-name { color:#80d080; }
+
+/* night phase */
+.wnight-step { background:#141627;border-radius:16px;padding:20px;text-align:center;border:1px solid #2a2d45;margin-bottom:14px; }
+.wnight-num { font-size:0.7em;color:#4a4860;text-transform:uppercase;letter-spacing:2px;margin-bottom:6px; }
+.wnight-main { font-size:1.4em;font-weight:800;color:#e8c040;margin-bottom:6px; }
+.wnight-sub  { font-size:0.85em;color:#6a6888; }
+.wnight-moon { font-size:2.5em;margin-bottom:8px; }
+
+/* player grid for night actions */
+.wplayer-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:360px;margin-bottom:12px; }
+.wplayer-btn { padding:12px 8px;border-radius:12px;border:2px solid #2a2d45;background:#141627;color:#ccc8e0;font-size:0.9em;font-weight:600;cursor:pointer;transition:all 0.12s;text-align:center; }
+.wplayer-btn:active,.wplayer-btn.selected { border-color:#e8c040;background:#1e1a10;color:#e8c040; }
+.wplayer-btn.dead { opacity:0.35;pointer-events:none;text-decoration:line-through; }
+.wplayer-btn.wolf-pick { border-color:#bf3030;background:#1e0a0a;color:#ff8080; }
+
+/* seer reveal */
+.wseer-reveal { background:#141627;border:1px solid #2a2d45;border-radius:12px;padding:14px;text-align:center;margin-bottom:12px; }
+.wseer-role-lbl { font-size:0.7em;color:#4a4860;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px; }
+.wseer-role-val { font-size:1.3em;font-weight:700; }
+.wseer-role-val.wolf { color:#ff6060; }
+.wseer-role-val.good { color:#80d080; }
+
+/* day log */
+.wday-log { background:#141627;border-radius:12px;padding:14px;margin-bottom:12px;border-left:3px solid #bf3030; }
+.wday-log-item { font-size:0.88em;color:#9a96b8;padding:4px 0; }
+.wday-log-item.kill  { color:#ff8080; }
+.wday-log-item.heal  { color:#80d080; }
+.wday-log-item.none  { color:#4a4860;font-style:italic; }
+
+/* vote */
+.wvote-item { display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:#141627;border-radius:12px;margin-bottom:8px;border:2px solid transparent;cursor:pointer;transition:all 0.12s; }
+.wvote-item.selected { border-color:#e8c040;background:#1e1a10; }
+.wvote-name { font-size:0.95em;color:#ccc8e0;font-weight:500; }
+.wvote-check { opacity:0;color:#e8c040;font-size:1.1em; }
+.wvote-item.selected .wvote-check { opacity:1; }
+
+/* end */
+.wend-role-row { display:flex;align-items:center;gap:10px;padding:10px 14px;background:#141627;border-radius:10px;margin-bottom:6px;border:1px solid #2a2d45; }
+.wend-role-emoji { font-size:1.3em; }
+.wend-role-name { flex:1;font-size:0.9em;color:#ccc8e0; }
+.wend-role-badge { font-size:0.72em;padding:3px 8px;border-radius:20px;font-weight:600; }
+.wend-role-badge.wolf { background:rgba(191,48,48,0.2);color:#ff8080; }
+.wend-role-badge.good { background:rgba(90,207,90,0.15);color:#80d080; }
+.wend-role-badge.dead { background:rgba(100,100,120,0.2);color:#6a6888; }
+
 /* ── UTILS ── */
 .fade-in { animation: fadeIn 0.3s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
@@ -664,6 +780,16 @@ body.imposter .game-btn { letter-spacing:2px; }
       <div class="game-card-text">
         <div class="game-card-name">IMPOSTER</div>
         <div class="game-card-desc">Wer kennt das Wort nicht? · 3+ Spieler</div>
+      </div>
+      <div class="game-card-arrow">›</div>
+    </div>
+  </button>
+  <button class="game-card werwolf-card" onclick="gotoWerwolf()">
+    <div class="game-card-inner">
+      <div class="game-card-icon">🐺</div>
+      <div class="game-card-text">
+        <div class="game-card-name">WERWOLF</div>
+        <div class="game-card-desc">Dorf gegen Werwölfe · 4+ Spieler</div>
       </div>
       <div class="game-card-arrow">›</div>
     </div>
@@ -934,6 +1060,113 @@ body.imposter .game-btn { letter-spacing:2px; }
   <div class="spacer"></div>
 </div>
 
+<!-- ════════════════════ WERWOLF SETUP ════════════════════ -->
+<div class="screen" id="wMenu">
+  <h1>WERWOLF</h1>
+  <p class="subtitle">Spieler hinzufügen · mind. 4 Spieler</p>
+  <div class="card">
+    <div id="wPlayerList"></div>
+    <button class="btn btn-ghost btn-sm mt8" onclick="wAddField()">+ Spieler hinzufügen</button>
+  </div>
+  <button class="btn btn-primary" id="wNextBtn" onclick="showScreen('wNarrator')" disabled>Weiter →</button>
+</div>
+
+<!-- ════════════════════ WERWOLF NARRATOR ════════════════════ -->
+<div class="screen" id="wNarrator">
+  <div class="spacer"></div>
+  <div class="big-emoji">🎭</div>
+  <h2>Erzähler wählen</h2>
+  <p class="subtitle" style="margin-bottom:18px">Der Erzähler leitet das Spiel und schaut nicht auf Karten</p>
+  <div id="wNarrList" style="width:100%;max-width:360px"></div>
+  <button class="btn btn-primary" id="wNarrBtn" style="max-width:360px;margin-top:8px" onclick="showScreen('wRoles')" disabled>Weiter →</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ WERWOLF ROLES ════════════════════ -->
+<div class="screen" id="wRoles">
+  <h2 style="text-align:center;margin-top:8px">Rollen auswählen</h2>
+  <button class="btn btn-ghost btn-sm" onclick="wSuggestRoles()" style="margin-bottom:4px">✨ Vorschlag für <span id="wRoleSuggestN"></span> Spieler</button>
+  <div class="card" style="padding:10px">
+    <div id="wRoleList"></div>
+    <div class="wrole-total" id="wRoleTotal"></div>
+  </div>
+  <button class="btn btn-primary" id="wRolesBtn" onclick="wStartReveal()" disabled>Spiel starten →</button>
+</div>
+
+<!-- ════════════════════ WERWOLF REVEAL ════════════════════ -->
+<div class="screen" id="wReveal">
+  <div class="spacer"></div>
+  <p class="subtitle" id="wRevealSub" style="margin-bottom:4px"></p>
+  <h2 id="wRevealName" style="margin-bottom:20px;font-size:1.6em"></h2>
+  <div class="wcard-scene" onclick="wFlipCard()">
+    <div class="wcard-inner" id="wCardInner">
+      <div class="wcard-face wcard-front">
+        <div class="wcard-q">🌕</div>
+        <div class="wcard-tap">Tippen zum Aufdecken</div>
+      </div>
+      <div class="wcard-face wcard-back" id="wCardBack"></div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="wRevealNext" style="display:none;max-width:280px" onclick="wRevealNextPlayer()">Weiter →</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ WERWOLF NIGHT ════════════════════ -->
+<div class="screen" id="wNight">
+  <div class="wnight-step">
+    <div class="wnight-moon" id="wNightMoon">🌙</div>
+    <div class="wnight-num" id="wNightNum"></div>
+    <div class="wnight-main" id="wNightMain"></div>
+    <div class="wnight-sub" id="wNightSub"></div>
+  </div>
+  <div id="wNightAction" style="width:100%;max-width:360px"></div>
+  <div id="wSeerReveal" style="display:none;width:100%;max-width:360px"></div>
+  <button class="btn btn-primary" id="wNightNext" style="max-width:360px" onclick="wNightNext()">Weiter →</button>
+</div>
+
+<!-- ════════════════════ WERWOLF DAY ════════════════════ -->
+<div class="screen" id="wDay">
+  <div class="spacer"></div>
+  <div class="big-emoji">☀️</div>
+  <h2>Tag <span id="wDayNum"></span></h2>
+  <div class="wday-log" id="wDayLog" style="width:100%;max-width:360px"></div>
+  <p class="subtitle" style="margin-bottom:10px;max-width:360px">Diskutiert und wählt einen Verdächtigen!</p>
+  <div id="wVoteList" style="width:100%;max-width:360px"></div>
+  <button class="btn btn-primary" id="wVoteBtn" style="max-width:360px;margin-top:4px" onclick="wConfirmVote()" disabled>Abstimmen →</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ WERWOLF JAEGER ════════════════════ -->
+<div class="screen" id="wJaeger">
+  <div class="spacer"></div>
+  <div class="big-emoji">🏹</div>
+  <h2>Jäger!</h2>
+  <p class="subtitle" style="margin-bottom:18px"><span id="wJaegerName" style="color:#e8c040"></span> wurde eliminiert und darf jetzt schießen!</p>
+  <div id="wJaegerGrid" style="width:100%;max-width:360px" class="wplayer-grid"></div>
+  <button class="btn btn-danger" id="wJaegerBtn" style="max-width:360px" onclick="wJaegerShoot()" disabled>Schießen 🏹</button>
+  <button class="btn btn-ghost" style="max-width:360px;margin-top:8px" onclick="wJaegerSkip()">Nicht schießen</button>
+  <div class="spacer"></div>
+</div>
+
+<!-- ════════════════════ WERWOLF END ════════════════════ -->
+<div class="screen" id="wEnd">
+  <div class="spacer"></div>
+  <div id="wEndBanner" class="iresult-banner" style="max-width:360px;width:100%">
+    <div class="iresult-emoji" id="wEndEmoji"></div>
+    <div class="iresult-title" id="wEndTitle"></div>
+    <div class="iresult-sub" id="wEndSub"></div>
+  </div>
+  <div class="card" style="width:100%;max-width:360px;padding:12px">
+    <div style="font-size:0.7em;color:#4a4860;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">Alle Rollen</div>
+    <div id="wEndRoles"></div>
+  </div>
+  <div style="display:flex;gap:10px;width:100%;max-width:360px;margin-top:8px">
+    <button class="btn btn-secondary" style="flex:1" onclick="showScreen('home')">Hauptmenü</button>
+    <button class="btn btn-primary" style="flex:1" onclick="wPlayAgain()">Nochmal 🌕</button>
+  </div>
+  <div class="spacer"></div>
+</div>
+
 <script>
 // ══════════════════════════════════════════════
 //  PIP LAYOUTS & DIE RENDERING
@@ -1085,16 +1318,25 @@ function beginTurn() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const kniffelScreens   = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
-  const imposterScreens  = ['iMenu','iReveal','iDiscuss','iVote','iGuess','iResult'];
+  const kniffelScreens  = ['kMenu','kHandoff','kGame','kScore','kShared','kEnd'];
+  const imposterScreens = ['iMenu','iReveal','iDiscuss','iVote','iGuess','iResult'];
+  const werwolfScreens  = ['wMenu','wNarrator','wRoles','wReveal','wNight','wDay','wJaeger','wEnd'];
   const isKniffel  = kniffelScreens.includes(id);
   const isImposter = imposterScreens.includes(id);
+  const isWerwolf  = werwolfScreens.includes(id);
   document.body.classList.toggle('kniffel',  isKniffel);
   document.body.classList.toggle('imposter', isImposter);
-  const menuScreens = ['handoff','game','reveal','phaseEnd','gameOver','kHandoff','kGame','kScore','kShared','kEnd','iReveal','iDiscuss','iVote','iGuess','iResult'];
+  document.body.classList.toggle('werwolf',  isWerwolf);
+  const menuScreens = ['handoff','game','reveal','phaseEnd','gameOver',
+    'kHandoff','kGame','kScore','kShared','kEnd',
+    'iReveal','iDiscuss','iVote','iGuess','iResult',
+    'wReveal','wNight','wDay','wJaeger','wEnd'];
   document.getElementById('hamburger').classList.toggle('visible', menuScreens.includes(id));
-  document.getElementById('gmGameLabel').textContent = isKniffel ? 'Kniffel' : isImposter ? 'Imposter' : 'Schocken';
+  document.getElementById('gmGameLabel').textContent =
+    isKniffel ? 'Kniffel' : isImposter ? 'Imposter' : isWerwolf ? 'Werwolf' : 'Schocken';
   if (id === 'iVote') showScreen_iVote();
+  if (id === 'wNarrator') wShowNarrator();
+  if (id === 'wRoles') wShowRoles();
 }
 
 // ── GAME MENU ──
@@ -1113,9 +1355,11 @@ function gmRestart() {
   closeGameMenu();
   const isKniffel  = document.body.classList.contains('kniffel');
   const isImposter = document.body.classList.contains('imposter');
+  const isWerwolf  = document.body.classList.contains('werwolf');
   gmConfirm('Spiel neu starten?', 'Der Spielstand geht verloren.', ()=>{
     if (isKniffel)       showScreen('kMenu');
     else if (isImposter) gotoImposter();
+    else if (isWerwolf)  gotoWerwolf();
     else                 showScreen('menu');
   });
 }
@@ -1136,6 +1380,41 @@ function gmRules() {
   closeGameMenu();
   const isKniffel  = document.body.classList.contains('kniffel');
   const isImposter = document.body.classList.contains('imposter');
+  const isWerwolf  = document.body.classList.contains('werwolf');
+  if (isWerwolf) {
+    document.getElementById('rulesTitle').textContent = 'Werwolf – Regeln';
+    document.getElementById('rulesContent').innerHTML = `
+      <div class="rules-section"><strong>Ziel</strong><ul>
+        <li>Dorf: Alle Werwölfe eliminieren</li>
+        <li>Werwölfe: Mindestens so viele wie Dorfbewohner sein</li>
+      </ul></div>
+      <div class="rules-section"><strong>Ablauf</strong><ul>
+        <li>Nacht: Werwölfe töten, Hexe heilt/vergiftet, Seher schaut nach</li>
+        <li>Tag: Dorf diskutiert und wählt einen Verdächtigen raus</li>
+        <li>Wiederholen bis eine Seite gewinnt</li>
+      </ul></div>
+      <div class="rules-section"><strong>Bürgermeister</strong><ul>
+        <li>In der 1. Abstimmung wird ein Bürgermeister 🏅 gewählt</li>
+        <li>Der Bürgermeister hat doppelte Stimme bei Abstimmungen</li>
+        <li>Stirbt er, wird ein neuer gewählt</li>
+      </ul></div>
+      <div class="rules-section"><strong>Rollen (Dorf)</strong><ul>
+        <li>🧑 Dorfbewohner – Diskussion und Abstimmung</li>
+        <li>🔮 Seher – sieht jede Nacht eine Rolle (Karte wird gezeigt)</li>
+        <li>🧪 Hexe – 1 Heiltrank + 1 Gifttrank</li>
+        <li>🏹 Jäger – schießt beim Sterben auf jemanden</li>
+        <li>💊 Heiler – schützt jede Nacht eine Person (nicht 2× dieselbe)</li>
+        <li>💘 Amor – verbindet 2 Liebende in Nacht 1</li>
+        <li>🔑 Freimauerer – zwei kennen sich aus Nacht 1</li>
+        <li>🪞 Doppelgänger – übernimmt in Nacht 1 eine andere Rolle</li>
+      </ul></div>
+      <div class="rules-section"><strong>Rollen (Werwolf-Team)</strong><ul>
+        <li>🐺 Werwolf – tötet jede Nacht gemeinsam</li>
+        <li>🧙 Hexenmeister – kennt alle Werwölfe, bleibt verborgen</li>
+      </ul></div>`;
+    document.getElementById('rulesOverlay').classList.add('open');
+    return;
+  }
   if (isImposter) {
     document.getElementById('rulesTitle').textContent = 'Imposter – Regeln';
     document.getElementById('rulesContent').innerHTML = `
@@ -2702,9 +2981,659 @@ function iPlayAgain() {
   showScreen('iMenu');
 }
 
-// ── INIT MENU ──
 addField('');
 addField('');
+
+// ══════════════════════════════════════════════
+//  WERWOLF GAME
+// ══════════════════════════════════════════════
+
+const W_ROLES = [
+  { id:'werwolf',     name:'Werwolf',      emoji:'🐺', team:'wolf',    desc:'Tötet jede Nacht einen Dorfbewohner.' },
+  { id:'dorfbewohner',name:'Dorfbewohner', emoji:'🧑', team:'village', desc:'Finde die Werwölfe!' },
+  { id:'seher',       name:'Seher',        emoji:'🔮', team:'village', desc:'Schau jede Nacht eine Karte an.' },
+  { id:'hexe',        name:'Hexe',         emoji:'🧪', team:'village', desc:'Hat 1 Heiltrank und 1 Gifttrank.' },
+  { id:'jaeger',      name:'Jäger',        emoji:'🏹', team:'village', desc:'Beim Tod darf er sofort schießen.' },
+  { id:'heiler',      name:'Heiler',       emoji:'💊', team:'village', desc:'Schützt jede Nacht eine Person. Nicht zweimal dieselbe.' },
+  { id:'amor',        name:'Amor',         emoji:'💘', team:'village', desc:'Verbindet in Nacht 1 zwei Liebende. Stirbt einer, stirbt der andere.' },
+  { id:'freimauerer', name:'Freimauerer',  emoji:'🔑', team:'village', desc:'Zwei Freimauerer kennen sich von Beginn an.' },
+  { id:'hexenmeister',name:'Hexenmeister', emoji:'🧙', team:'wolf',    desc:'Werwolf-Team. Kennt alle Werwölfe, bleibt tagsüber verborgen.' },
+  { id:'doppelgaenger',name:'Doppelgänger',emoji:'🪞', team:'village', desc:'Sieht in Nacht 1 eine Karte und übernimmt diese Rolle.' },
+];
+
+let WG = {};
+
+function gotoWerwolf() {
+  WG = {};
+  wInitMenu();
+  showScreen('wMenu');
+}
+
+function wInitMenu() {
+  const list = document.getElementById('wPlayerList');
+  list.innerHTML = '';
+  wAddField(); wAddField(); wAddField(); wAddField();
+  wUpdateNextBtn();
+}
+
+function wAddField(name='') {
+  const list = document.getElementById('wPlayerList');
+  const d = document.createElement('div');
+  d.className = 'player-entry';
+  d.innerHTML = `<input class="input" type="text" placeholder="Spielername" value="${name}" oninput="wUpdateNextBtn()">
+    <button class="del-btn" onclick="this.parentElement.remove();wUpdateNextBtn()">✕</button>`;
+  list.appendChild(d);
+  wUpdateNextBtn();
+}
+
+function wUpdateNextBtn() {
+  const names = [...document.querySelectorAll('#wPlayerList .input')].map(i=>i.value.trim()).filter(Boolean);
+  document.getElementById('wNextBtn').disabled = names.length < 4;
+}
+
+// ── NARRATOR SCREEN ──
+
+function wShowNarrator() {
+  const names = [...document.querySelectorAll('#wPlayerList .input')].map(i=>i.value.trim()).filter(Boolean);
+  WG.allPlayers = names;
+  document.getElementById('wRoleSuggestN').textContent = names.length;
+  const list = document.getElementById('wNarrList');
+  list.innerHTML = '';
+  names.forEach(n => {
+    const b = document.createElement('button');
+    b.className = 'btn btn-secondary';
+    b.style = 'width:100%;max-width:360px;margin-bottom:8px';
+    b.textContent = n;
+    b.onclick = () => {
+      WG.narrator = n;
+      list.querySelectorAll('button').forEach(x=>x.classList.remove('btn-primary'));
+      b.classList.add('btn-primary');
+      document.getElementById('wNarrBtn').disabled = false;
+    };
+    list.appendChild(b);
+  });
+  document.getElementById('wNarrBtn').disabled = true;
+}
+
+// ── ROLES SCREEN ──
+
+function wShowRoles() {
+  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  document.getElementById('wRoleSuggestN').textContent = n;
+  const list = document.getElementById('wRoleList');
+  list.innerHTML = '';
+  if (!WG.roleCounts) WG.roleCounts = {};
+  W_ROLES.forEach(r => {
+    if (!WG.roleCounts[r.id]) WG.roleCounts[r.id] = 0;
+    const row = document.createElement('div');
+    row.style = 'display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05)';
+    const teamColor = r.team==='wolf' ? '#cc3333' : '#5588bb';
+    row.innerHTML = `<span style="font-size:1.3em">${r.emoji}</span>
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:0.88em">${r.name} <span style="font-size:0.75em;color:${teamColor}">${r.team==='wolf'?'Werwölfe':'Dorf'}</span></div>
+        <div style="font-size:0.71em;color:#6a6888;line-height:1.3">${r.desc}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="btn btn-ghost btn-sm" style="width:30px;height:30px;padding:0;font-size:1em" onclick="wRoleAdj('${r.id}',-1)">−</button>
+        <span id="wrn_${r.id}" style="min-width:18px;text-align:center;font-weight:700">${WG.roleCounts[r.id]}</span>
+        <button class="btn btn-ghost btn-sm" style="width:30px;height:30px;padding:0;font-size:1em" onclick="wRoleAdj('${r.id}',1)">+</button>
+      </div>`;
+    list.appendChild(row);
+  });
+  wUpdateRoleTotal();
+}
+
+function wRoleAdj(id, delta) {
+  if (!WG.roleCounts) WG.roleCounts = {};
+  WG.roleCounts[id] = Math.max(0, (WG.roleCounts[id]||0) + delta);
+  document.getElementById('wrn_'+id).textContent = WG.roleCounts[id];
+  wUpdateRoleTotal();
+}
+
+function wUpdateRoleTotal() {
+  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  const total = Object.values(WG.roleCounts||{}).reduce((a,b)=>a+b,0);
+  const el = document.getElementById('wRoleTotal');
+  el.textContent = `${total} / ${n} Rollen`;
+  el.style.color = total === n ? '#40b880' : '#e06060';
+  document.getElementById('wRolesBtn').disabled = total !== n;
+}
+
+function wSuggestRoles() {
+  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  if (!WG.roleCounts) WG.roleCounts = {};
+  W_ROLES.forEach(r => { WG.roleCounts[r.id] = 0; });
+
+  // Werewolf count scales with player count
+  let wolves = n <= 5 ? 1 : n <= 8 ? 2 : n <= 11 ? 3 : 4;
+  WG.roleCounts['werwolf'] = wolves;
+  let rem = n - wolves;
+
+  // Add Hexenmeister for larger groups
+  if (n >= 10 && rem > 1) { WG.roleCounts['hexenmeister'] = 1; rem--; }
+
+  // Special village roles ordered by priority
+  const specials = [];
+  if (n >= 5)  specials.push({id:'seher',       count:1});
+  if (n >= 7)  specials.push({id:'hexe',        count:1});
+  if (n >= 7)  specials.push({id:'jaeger',      count:1});
+  if (n >= 9)  specials.push({id:'heiler',      count:1});
+  if (n >= 9)  specials.push({id:'amor',        count:1});
+  if (n >= 11) specials.push({id:'freimauerer', count:2});
+  if (n >= 13) specials.push({id:'doppelgaenger',count:1});
+
+  for (const s of specials) {
+    if (rem >= s.count) { WG.roleCounts[s.id] = s.count; rem -= s.count; }
+  }
+  WG.roleCounts['dorfbewohner'] = Math.max(0, rem);
+
+  W_ROLES.forEach(r => {
+    const el = document.getElementById('wrn_'+r.id);
+    if (el) el.textContent = WG.roleCounts[r.id];
+  });
+  wUpdateRoleTotal();
+}
+
+// ── CARD REVEAL PHASE ──
+
+function wStartReveal() {
+  const names = (WG.allPlayers||[]).filter(n=>n!==WG.narrator);
+  const shuffled = [...names].sort(()=>Math.random()-0.5);
+  const roles = [];
+  W_ROLES.forEach(r => { for(let i=0;i<(WG.roleCounts[r.id]||0);i++) roles.push(r.id); });
+  const shuffledRoles = [...roles].sort(()=>Math.random()-0.5);
+
+  WG.players = shuffled.map((name,i)=>({
+    name, roleId:shuffledRoles[i], alive:true, mayorMark:false
+  }));
+
+  // Handle Doppelgänger: in night 1 will pick a role
+  WG.doppelgaengerResolved = false;
+
+  // Handle Amor: in night 1 will pick two lovers
+  WG.lovers = null;
+
+  WG.revealIdx    = 0;
+  WG.night        = 0;
+  WG.mayorElected = false;
+  WG.mayor        = null;
+  WG.hexeHeal     = true;
+  WG.hexePoison   = true;
+  WG.heilerLastSaved = null;
+  WG.nightKill    = null;
+  WG.nightKilled  = [];
+  WG.pendingJaeger = null;
+
+  wShowRevealCard();
+  showScreen('wReveal');
+}
+
+function wShowRevealCard() {
+  const p = WG.players[WG.revealIdx];
+  document.getElementById('wRevealSub').textContent = `Spieler ${WG.revealIdx+1} von ${WG.players.length}`;
+  document.getElementById('wRevealName').textContent = p.name;
+  document.getElementById('wRevealNext').style.display = 'none';
+
+  const inner = document.getElementById('wCardInner');
+  inner.style.transition = 'none';
+  inner.classList.remove('flipped');
+  inner.offsetHeight;
+  requestAnimationFrame(()=>{ inner.style.transition=''; });
+
+  const role = W_ROLES.find(r=>r.id===p.roleId);
+  document.getElementById('wCardBack').innerHTML = wBuildRoleCard(role);
+}
+
+function wBuildRoleCard(role) {
+  const teamColor = role.team==='wolf' ? '#cc3333' : '#3388cc';
+  const teamLabel = role.team==='wolf' ? 'WERWOLF-TEAM' : 'DORFTEAM';
+  return `<div style="text-align:center;padding:16px 12px">
+    <div style="font-size:3em;margin-bottom:8px">${role.emoji}</div>
+    <div style="font-size:1.25em;font-weight:800;color:#e8c040;margin-bottom:4px">${role.name}</div>
+    <div style="font-size:0.72em;color:${teamColor};text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">${teamLabel}</div>
+    <div style="font-size:0.83em;color:#9a96b8;line-height:1.5">${role.desc}</div>
+  </div>`;
+}
+
+function wFlipCard() {
+  document.getElementById('wCardInner').classList.add('flipped');
+  document.getElementById('wRevealNext').style.display = '';
+}
+
+function wRevealNextPlayer() {
+  WG.revealIdx++;
+  if (WG.revealIdx < WG.players.length) {
+    wShowRevealCard();
+  } else {
+    wStartNight();
+  }
+}
+
+// ── NIGHT PHASE ──
+
+// Night step order
+const W_STEPS = ['doppelgaenger','amor','freimauerer','hexenmeister','werwolf','seher','heiler','hexe'];
+
+function wStartNight() {
+  WG.night++;
+  WG.nightKill   = null;
+  WG.nightKilled = [];
+  WG.heilerSave  = null;
+  WG.witchHeal   = false;
+  WG.witchPoison = null;
+  WG.nightStepIdx = -1;
+  document.getElementById('wNightNext').textContent = 'Weiter →';
+  wNightNext();
+}
+
+function wNightNext() {
+  WG.nightStepIdx++;
+  while (WG.nightStepIdx < W_STEPS.length) {
+    const step = W_STEPS[WG.nightStepIdx];
+    const hasAlive = WG.players.some(p=>p.alive && p.roleId===step);
+    if (step==='doppelgaenger' && hasAlive && !WG.doppelgaengerResolved && WG.night===1) { wNightDoppelgaenger(); return; }
+    if (step==='amor'          && hasAlive && !WG.lovers && WG.night===1)               { wNightAmor(); return; }
+    if (step==='freimauerer'   && hasAlive && WG.night===1)                              { wNightFreimauerer(); return; }
+    if (step==='hexenmeister'  && hasAlive && WG.night===1)                              { wNightHexenmeister(); return; }
+    if (step==='werwolf'       && hasAlive)                                              { wNightWerwolf(); return; }
+    if (step==='seher'         && hasAlive)                                              { wNightSeher(); return; }
+    if (step==='heiler'        && hasAlive)                                              { wNightHeiler(); return; }
+    if (step==='hexe'          && hasAlive && (WG.hexeHeal||WG.hexePoison))             { wNightHexe(); return; }
+    WG.nightStepIdx++;
+  }
+  wResolveNight();
+}
+
+function wSetNight(moon, num, main, sub, actionHTML, nextDisabled=false) {
+  document.getElementById('wNightMoon').textContent = moon;
+  document.getElementById('wNightNum').textContent  = num;
+  document.getElementById('wNightMain').textContent = main;
+  document.getElementById('wNightSub').textContent  = sub;
+  document.getElementById('wNightAction').innerHTML = actionHTML;
+  document.getElementById('wSeerReveal').style.display = 'none';
+  document.getElementById('wNightNext').disabled = nextDisabled;
+  document.getElementById('wNightNext').style.display = '';
+  showScreen('wNight');
+}
+
+function wNightDoppelgaenger() {
+  const others = WG.players.filter(p=>p.alive && p.roleId!=='doppelgaenger');
+  const btns = others.map(p=>`<button class="btn btn-secondary" style="width:100%;margin-bottom:8px" onclick="wDoppelgaengerPick('${p.name}')">${p.name}</button>`).join('');
+  wSetNight('🪞','Nacht 1','Der Doppelgänger erwacht','Wählt einen Spieler und übernehmt seine Rolle:',btns,true);
+}
+function wDoppelgaengerPick(name) {
+  const target = WG.players.find(p=>p.name===name);
+  const me = WG.players.find(p=>p.roleId==='doppelgaenger');
+  if (me) me.roleId = target.roleId + '_doppel'; // keep identity but new role
+  WG.doppelgaengerResolved = true;
+  const role = W_ROLES.find(r=>r.id===target.roleId);
+  document.getElementById('wNightSub').textContent = `Du bist jetzt: ${role.emoji} ${role.name}`;
+  document.getElementById('wNightAction').innerHTML = '';
+  document.getElementById('wNightNext').disabled = false;
+}
+
+function wNightAmor() {
+  const alive = WG.players.filter(p=>p.alive && p.roleId!=='amor');
+  WG.amorPicks = [];
+  const btns = alive.map(p=>`<button class="btn btn-secondary" style="width:100%;margin-bottom:8px" id="amor_${p.name.replace(/\s/g,'_')}" onclick="wAmorPick('${p.name}')">${p.name}</button>`).join('');
+  wSetNight('💘','Nacht 1','Amor erwacht','Wählt zwei Liebende (2 Klicks):',btns,true);
+}
+function wAmorPick(name) {
+  const id = 'amor_'+name.replace(/\s/g,'_');
+  const btn = document.getElementById(id);
+  if (WG.amorPicks.includes(name)) {
+    WG.amorPicks = WG.amorPicks.filter(n=>n!==name);
+    btn.classList.remove('btn-primary');
+  } else if (WG.amorPicks.length < 2) {
+    WG.amorPicks.push(name);
+    btn.classList.add('btn-primary');
+  }
+  if (WG.amorPicks.length===2) {
+    WG.lovers = [...WG.amorPicks];
+    document.getElementById('wNightSub').textContent = `💘 ${WG.lovers[0]} & ${WG.lovers[1]} sind verliebt`;
+    document.getElementById('wNightNext').disabled = false;
+  } else {
+    document.getElementById('wNightNext').disabled = true;
+  }
+}
+
+function wNightFreimauerer() {
+  const fm = WG.players.filter(p=>p.alive && p.roleId==='freimauerer');
+  const names = fm.map(p=>`<div style="font-size:1.1em;font-weight:700;color:#e8c040;padding:4px 0">${p.name} 🔑</div>`).join('');
+  wSetNight('🔑','Nacht 1','Die Freimauerer erwachen','Ihr kennt euch:',names,false);
+}
+
+function wNightHexenmeister() {
+  const wolves = WG.players.filter(p=>p.alive && (p.roleId==='werwolf'||p.roleId==='hexenmeister'));
+  const names = wolves.map(p=>{
+    const emoji = p.roleId==='hexenmeister'?'🧙':'🐺';
+    return `<div style="font-size:1em;font-weight:700;color:#e8c040;padding:4px 0">${emoji} ${p.name}</div>`;
+  }).join('');
+  wSetNight('🧙','Nacht 1','Der Hexenmeister erwacht','Dein Werwolf-Team:',names,false);
+}
+
+function wNightWerwolf() {
+  const targets = WG.players.filter(p=>p.alive && p.roleId!=='werwolf' && p.roleId!=='hexenmeister');
+  const btns = targets.map(p=>`<button class="btn btn-secondary" style="width:100%;margin-bottom:8px" onclick="wWerwolfPick('${p.name}')">${p.name}</button>`).join('');
+  wSetNight('🐺','Nacht '+WG.night,'Die Werwölfe erwachen','Wählt ein Opfer:',btns,true);
+}
+function wWerwolfPick(name) {
+  WG.nightKill = name;
+  document.querySelectorAll('#wNightAction button').forEach(b=>{
+    b.classList.toggle('btn-primary', b.textContent===name);
+    b.classList.toggle('btn-secondary', b.textContent!==name);
+  });
+  document.getElementById('wNightNext').disabled = false;
+}
+
+function wNightSeher() {
+  const targets = WG.players.filter(p=>p.alive && p.roleId!=='seher');
+  const btns = targets.map(p=>`<button class="btn btn-secondary" style="width:100%;margin-bottom:8px" onclick="wSeherPick('${p.name}')">${p.name}</button>`).join('');
+  wSetNight('🔮','Nacht '+WG.night,'Der Seher erwacht','Wählt einen Spieler um seine Karte zu sehen:',btns,true);
+}
+function wSeherPick(name) {
+  const p = WG.players.find(x=>x.name===name);
+  const roleId = p.roleId.replace('_doppel','');
+  const role = W_ROLES.find(r=>r.id===roleId) || W_ROLES[1];
+  // Show role card to narrator
+  const rev = document.getElementById('wSeerReveal');
+  rev.style.display = '';
+  rev.innerHTML = `<div style="margin:8px 0;border:2px solid #e8c040;border-radius:12px;overflow:hidden">${wBuildRoleCard(role)}</div>`;
+  document.querySelectorAll('#wNightAction button').forEach(b=>{
+    b.classList.toggle('btn-primary', b.textContent===name);
+    b.classList.toggle('btn-secondary', b.textContent!==name);
+  });
+  document.getElementById('wNightNext').disabled = false;
+}
+
+function wNightHeiler() {
+  const alive = WG.players.filter(p=>p.alive);
+  const prev = WG.heilerLastSaved;
+  const btns = alive.map(p=>{
+    const blocked = p.name===prev;
+    return `<button class="btn ${blocked?'btn-ghost':'btn-secondary'}" style="width:100%;margin-bottom:8px;${blocked?'opacity:0.4':''}" ${blocked?'disabled':''} onclick="wHeilerPick('${p.name}')">${p.name}${blocked?' (zuletzt)':''}</button>`;
+  }).join('');
+  wSetNight('💊','Nacht '+WG.night,'Der Heiler erwacht','Schützt eine Person:',btns,true);
+}
+function wHeilerPick(name) {
+  WG.heilerSave = name;
+  document.querySelectorAll('#wNightAction button:not([disabled])').forEach(b=>{
+    b.classList.toggle('btn-primary', b.textContent.startsWith(name));
+    b.classList.toggle('btn-secondary', !b.textContent.startsWith(name));
+  });
+  document.getElementById('wNightNext').disabled = false;
+}
+
+function wNightHexe() {
+  let html = '';
+  if (WG.hexeHeal && WG.nightKill) {
+    html += `<button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="wHexeHeal()">💊 ${WG.nightKill} heilen (Heiltrank)</button>`;
+  }
+  if (WG.hexePoison) {
+    html += `<div style="font-size:0.8em;color:#9a96b8;margin:4px 0 6px">Gifttrank einsetzen:</div>`;
+    WG.players.filter(p=>p.alive && p.roleId!=='hexe').forEach(p=>{
+      html += `<button class="btn btn-ghost" style="width:100%;margin-bottom:6px" onclick="wHexePoison('${p.name}')">☠️ ${p.name}</button>`;
+    });
+  }
+  const sub = WG.nightKill ? `${WG.nightKill} wurde von Werwölfen angegriffen` : 'Niemand wurde angegriffen';
+  wSetNight('🧪','Nacht '+WG.night,'Die Hexe erwacht',sub,html,false);
+  document.getElementById('wNightNext').textContent = 'Überspringen →';
+}
+function wHexeHeal() {
+  WG.witchHeal = true; WG.hexeHeal = false;
+  document.getElementById('wNightSub').textContent = `✅ ${WG.nightKill} wird geheilt!`;
+  wNightHexe();
+}
+function wHexePoison(name) {
+  WG.witchPoison = name; WG.hexePoison = false;
+  document.getElementById('wNightSub').textContent = `☠️ ${name} wird vergiftet!`;
+  document.getElementById('wNightAction').innerHTML = '';
+}
+
+// ── RESOLVE NIGHT ──
+
+function wResolveNight() {
+  if (WG.heilerSave) WG.heilerLastSaved = WG.heilerSave;
+  const killed = new Set();
+  if (WG.nightKill && !WG.witchHeal && WG.heilerSave !== WG.nightKill) killed.add(WG.nightKill);
+  if (WG.witchPoison) killed.add(WG.witchPoison);
+
+  WG.nightKilled = [...killed];
+  WG.nightKilled.forEach(name=>{ const p=WG.players.find(x=>x.name===name); if(p) p.alive=false; });
+
+  // Lovers: if one lover dies, so does the other
+  if (WG.lovers) {
+    const [l1,l2] = WG.lovers;
+    const p1=WG.players.find(p=>p.name===l1), p2=WG.players.find(p=>p.name===l2);
+    if (p1&&p2) {
+      if (!p1.alive && p2.alive) { p2.alive=false; WG.nightKilled.push(l2); }
+      if (!p2.alive && p1.alive) { p1.alive=false; WG.nightKilled.push(l1); }
+    }
+  }
+
+  // Jäger killed at night?
+  WG.pendingJaeger = WG.nightKilled.find(n=>{ const p=WG.players.find(x=>x.name===n); return p&&p.roleId==='jaeger'; }) || null;
+
+  const wc = wCheckWin();
+  if (wc) { wShowEnd(wc); return; }
+  wStartDay();
+}
+
+function wCheckWin() {
+  const alive = WG.players.filter(p=>p.alive);
+  const wolves = alive.filter(p=>p.roleId==='werwolf'||p.roleId==='hexenmeister');
+  const village = alive.filter(p=>p.roleId!=='werwolf'&&p.roleId!=='hexenmeister');
+  if (wolves.length===0) return 'village';
+  if (wolves.length>=village.length) return 'wolf';
+  // Lovers win condition: if both lovers alive and are the last 2
+  if (WG.lovers && alive.length===2) {
+    const [l1,l2]=WG.lovers;
+    if (alive.some(p=>p.name===l1)&&alive.some(p=>p.name===l2)) return 'lovers';
+  }
+  return null;
+}
+
+// ── DAY PHASE ──
+
+function wStartDay() {
+  if (WG.pendingJaeger) { wShowJaeger(); return; }
+  document.getElementById('wDayNum').textContent = WG.night;
+  const log = document.getElementById('wDayLog');
+  log.innerHTML = WG.nightKilled.length
+    ? WG.nightKilled.map(n=>`<div style="padding:5px 0;color:#e06060;font-weight:600">💀 ${n} <span style="font-size:0.8em;font-weight:400;color:#b06060">(${wRoleTag(n)})</span> wurde in der Nacht getötet</div>`).join('')
+    : '<div style="padding:5px 0;color:#40b880">✅ Niemand starb in dieser Nacht!</div>';
+
+  if (!WG.mayorElected) {
+    wMayorElect('🏅 Zuerst: Wählt den Bürgermeister! (doppelte Stimme)', wConfirmMayor);
+    return;
+  }
+  if (WG.mayor && !WG.players.find(p=>p.name===WG.mayor)?.alive) {
+    log.innerHTML += `<div style="padding:5px 0;color:#e8c040">🏅 Der Bürgermeister ist tot – wählt einen neuen!</div>`;
+    wMayorElect('Neuen Bürgermeister wählen', wConfirmMayor);
+    return;
+  }
+  wShowVote();
+}
+
+function wMayorElect(label, cb) {
+  const alive = WG.players.filter(p=>p.alive);
+  const voteList = document.getElementById('wVoteList');
+  voteList.innerHTML = '';
+  WG.mayorVote = null;
+  alive.forEach(p=>{
+    const b = document.createElement('button');
+    b.className = 'btn btn-secondary';
+    b.style = 'width:100%;margin-bottom:8px';
+    b.textContent = p.name;
+    b.onclick = ()=>{
+      WG.mayorVote = p.name;
+      voteList.querySelectorAll('button').forEach(x=>{ x.classList.remove('btn-primary'); x.classList.add('btn-secondary'); });
+      b.classList.remove('btn-secondary'); b.classList.add('btn-primary');
+      document.getElementById('wVoteBtn').disabled = false;
+    };
+    voteList.appendChild(b);
+  });
+  document.getElementById('wVoteBtn').textContent = label+' →';
+  document.getElementById('wVoteBtn').disabled = true;
+  document.getElementById('wVoteBtn').onclick = cb;
+  showScreen('wDay');
+}
+
+function wConfirmMayor() {
+  WG.mayor = WG.mayorVote;
+  WG.mayorElected = true;
+  WG.players.forEach(p=>p.mayorMark = p.name===WG.mayor);
+  wShowVote();
+}
+
+function wShowVote() {
+  const alive = WG.players.filter(p=>p.alive);
+  const voteList = document.getElementById('wVoteList');
+  voteList.innerHTML = '';
+  WG.vote = null;
+  alive.forEach(p=>{
+    const b = document.createElement('button');
+    b.className = 'btn btn-secondary';
+    b.style = 'width:100%;margin-bottom:8px';
+    b.textContent = p.name + (p.name===WG.mayor?' 🏅':'');
+    b.dataset.name = p.name;
+    b.onclick = ()=>{
+      WG.vote = p.name;
+      voteList.querySelectorAll('button').forEach(x=>{ x.classList.remove('btn-primary'); x.classList.add('btn-secondary'); });
+      b.classList.remove('btn-secondary'); b.classList.add('btn-primary');
+      document.getElementById('wVoteBtn').disabled = false;
+    };
+    voteList.appendChild(b);
+  });
+  document.getElementById('wVoteBtn').textContent = 'Abstimmen →';
+  document.getElementById('wVoteBtn').disabled = true;
+  document.getElementById('wVoteBtn').onclick = wConfirmVote;
+  showScreen('wDay');
+}
+
+function wConfirmVote() {
+  const p = WG.players.find(x=>x.name===WG.vote);
+  if (p) p.alive = false;
+
+  // Lovers: if one lover is voted out, so does the other
+  const extraDead = [];
+  if (WG.lovers && p) {
+    const [l1,l2]=WG.lovers;
+    if (p.name===l1) { const o=WG.players.find(x=>x.name===l2); if(o&&o.alive){o.alive=false;extraDead.push(o);} }
+    if (p.name===l2) { const o=WG.players.find(x=>x.name===l1); if(o&&o.alive){o.alive=false;extraDead.push(o);} }
+  }
+
+  // Show vote result with role in day log before continuing
+  const log = document.getElementById('wDayLog');
+  let result = `<div style="padding:5px 0;color:#e06060;font-weight:600">🗳️ ${p.name} <span style="font-size:0.8em;font-weight:400;color:#b06060">(${wRoleTag(p.name)})</span> wurde eliminiert</div>`;
+  extraDead.forEach(o=>{
+    result += `<div style="padding:5px 0;color:#e06060;font-weight:600">💘 ${o.name} <span style="font-size:0.8em;font-weight:400;color:#b06060">(${wRoleTag(o.name)})</span> stirbt aus Liebe</div>`;
+  });
+  log.innerHTML = result;
+
+  // Hide vote list and show a continue button
+  document.getElementById('wVoteList').innerHTML = '';
+  document.getElementById('wVoteBtn').textContent = 'Zur Nacht →';
+  document.getElementById('wVoteBtn').disabled = false;
+  document.getElementById('wVoteBtn').onclick = ()=>{
+    const wc = wCheckWin();
+    if (wc) { wShowEnd(wc); return; }
+    if (p && p.roleId==='jaeger') { WG.pendingJaeger = p.name; }
+    wStartNight();
+  };
+}
+
+function wShowJaeger() {
+  showScreen('wJaeger');
+  const jName = WG.pendingJaeger;
+  document.getElementById('wJaegerName').textContent = `${jName} (${wRoleTag(jName)})`;
+  const alive = WG.players.filter(p=>p.alive && p.name!==WG.pendingJaeger);
+  const grid = document.getElementById('wJaegerGrid');
+  grid.innerHTML = '';
+  alive.forEach(p=>{
+    const b = document.createElement('button');
+    b.className = 'btn btn-secondary';
+    b.style = 'width:100%;margin-bottom:8px';
+    b.textContent = p.name;
+    b.onclick = ()=>{
+      WG.jaegerTarget = p.name;
+      grid.querySelectorAll('button').forEach(x=>{ x.classList.remove('btn-primary'); x.classList.add('btn-secondary'); });
+      b.classList.remove('btn-secondary'); b.classList.add('btn-primary');
+      document.getElementById('wJaegerBtn').disabled = false;
+    };
+    grid.appendChild(b);
+  });
+  document.getElementById('wJaegerBtn').disabled = true;
+  WG.pendingJaeger = null;
+}
+
+function wJaegerShoot() {
+  const p = WG.players.find(x=>x.name===WG.jaegerTarget);
+  if (p) p.alive = false;
+  // Show who was shot with their role
+  document.getElementById('wJaegerGrid').innerHTML =
+    `<div style="padding:8px 0;color:#e06060;font-weight:600">💀 ${p.name} <span style="font-size:0.8em;font-weight:400;color:#b06060">(${wRoleTag(p.name)})</span> wurde erschossen</div>`;
+  document.getElementById('wJaegerBtn').style.display='none';
+  document.querySelector('#wJaeger .btn-ghost').textContent='Weiter →';
+  document.querySelector('#wJaeger .btn-ghost').onclick=()=>{
+    WG.jaegerTarget=null;
+    const wc=wCheckWin();
+    if(wc){wShowEnd(wc);return;}
+    wStartNight();
+  };
+}
+
+function wJaegerSkip() {
+  WG.jaegerTarget = null;
+  const wc = wCheckWin();
+  if (wc) { wShowEnd(wc); return; }
+  wStartNight();
+}
+
+function wRoleTag(name) {
+  const p = WG.players.find(x=>x.name===name);
+  if (!p) return '';
+  const roleId = p.roleId.replace('_doppel','');
+  const role = W_ROLES.find(r=>r.id===roleId) || W_ROLES[1];
+  return `${role.emoji} ${role.name}`;
+}
+
+// ── END GAME ──
+
+function wShowEnd(winner) {
+  const emojis = {village:'🏘️', wolf:'🐺', lovers:'💘'};
+  const titles = {village:'Das Dorf gewinnt!', wolf:'Die Werwölfe gewinnen!', lovers:'Die Liebenden gewinnen!'};
+  const subs   = {village:'Alle Werwölfe wurden eliminiert!', wolf:'Die Werwölfe haben das Dorf übernommen.', lovers:'Nur die Liebenden stehen noch!'};
+  document.getElementById('wEndEmoji').textContent = emojis[winner]||'🌕';
+  document.getElementById('wEndTitle').textContent = titles[winner]||'';
+  document.getElementById('wEndSub').textContent   = subs[winner]||'';
+
+  const roles = document.getElementById('wEndRoles');
+  roles.innerHTML = WG.players.map(p=>{
+    const roleId = p.roleId.replace('_doppel','');
+    const role = W_ROLES.find(r=>r.id===roleId)||W_ROLES[1];
+    const loverTag = WG.lovers&&WG.lovers.includes(p.name) ? ' 💘' : '';
+    return `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+      <span>${role.emoji}</span>
+      <span style="flex:1;font-weight:600">${p.name}${p.name===WG.mayor?' 🏅':''}${loverTag}</span>
+      <span style="font-size:0.8em;color:#9a96b8">${role.name}</span>
+      ${p.alive?'':'<span style="font-size:0.75em;color:#e06060">💀</span>'}
+    </div>`;
+  }).join('');
+
+  showScreen('wEnd');
+}
+
+function wPlayAgain() {
+  const prevAll = [...(WG.players||[]).map(p=>p.name), WG.narrator].filter(Boolean);
+  WG = {};
+  wInitMenu();
+  const list = document.getElementById('wPlayerList');
+  list.innerHTML = '';
+  prevAll.forEach(n=>wAddField(n));
+  wUpdateNextBtn();
+  showScreen('wMenu');
+}
 </script>
 </body>
 </html>
