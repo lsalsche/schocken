@@ -3059,7 +3059,7 @@ function wShowNarrator() {
 // ── ROLES SCREEN ──
 
 function wShowRoles() {
-  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  const n = WG.allPlayers ? WG.allPlayers.length - 1 : 0;
   document.getElementById('wRoleSuggestN').textContent = n;
   const list = document.getElementById('wRoleList');
   list.innerHTML = '';
@@ -3092,7 +3092,7 @@ function wRoleAdj(id, delta) {
 }
 
 function wUpdateRoleTotal() {
-  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  const n = WG.allPlayers ? WG.allPlayers.length - 1 : 0;
   const total = Object.values(WG.roleCounts||{}).reduce((a,b)=>a+b,0);
   const el = document.getElementById('wRoleTotal');
   el.textContent = `${total} / ${n} Rollen`;
@@ -3101,7 +3101,7 @@ function wUpdateRoleTotal() {
 }
 
 function wSuggestRoles() {
-  const n = WG.allPlayers ? WG.allPlayers.length : 0;
+  const n = WG.allPlayers ? WG.allPlayers.length - 1 : 0;
   if (!WG.roleCounts) WG.roleCounts = {};
   W_ROLES.forEach(r => { WG.roleCounts[r.id] = 0; });
 
