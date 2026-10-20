@@ -1133,6 +1133,7 @@ body.werwolf .player-entry input { background:#0c0e18; border-color:#2a2d45; col
   <p class="subtitle" style="margin-bottom:10px;max-width:360px">Diskutiert und wählt einen Verdächtigen!</p>
   <div id="wVoteList" style="width:100%;max-width:360px"></div>
   <button class="btn btn-primary" id="wVoteBtn" style="max-width:360px;margin-top:4px" onclick="wConfirmVote()" disabled>Abstimmen →</button>
+  <button class="btn btn-ghost" id="wVoteSkipBtn" style="max-width:360px;margin-top:6px;display:none" onclick="wSkipVote()">Abstimmung überspringen</button>
   <div class="spacer"></div>
 </div>
 
@@ -3475,6 +3476,7 @@ function wMayorElect(label, cb) {
   });
   document.getElementById('wVoteBtn').textContent = label+' →';
   document.getElementById('wVoteBtn').disabled = true;
+  document.getElementById('wVoteSkipBtn').style.display = 'none';
   document.getElementById('wVoteBtn').onclick = cb;
   showScreen('wDay');
 }
@@ -3508,6 +3510,7 @@ function wShowVote() {
   document.getElementById('wVoteBtn').textContent = 'Abstimmen →';
   document.getElementById('wVoteBtn').disabled = true;
   document.getElementById('wVoteBtn').onclick = wConfirmVote;
+  document.getElementById('wVoteSkipBtn').style.display = '';
   showScreen('wDay');
 }
 
@@ -3541,6 +3544,10 @@ function wConfirmVote() {
     if (p && p.roleId==='jaeger') { WG.pendingJaeger = p.name; }
     wStartNight();
   };
+}
+
+function wSkipVote() {
+  wStartNight();
 }
 
 function wShowJaeger() {
